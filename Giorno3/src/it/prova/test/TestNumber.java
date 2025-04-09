@@ -19,5 +19,12 @@ public class TestNumber {
         int[] creaLista = NumberUtility.creaProgressioneNumeri(quanti, moltiplicando);
         System.out.println(Arrays.toString(creaLista));
         System.out.println("Fine test creaProgressioneNumerica.......");
+
+        System.out.println("Inizio test riduciArray....");
+        int[] numeri = {4, 5, 6};
+        int riduzione = 3;
+        int[] creaLista1 = NumberUtility.riduciArray(numeri, riduzione);
+        System.out.println(Arrays.toString(creaLista1));
+        System.out.println("Fine test riduciArray....");
     }
 }

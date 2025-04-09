@@ -2,6 +2,8 @@ package it.prova.test;
 
 import it.prova.model.Televisore;
 
+import static it.prova.model.Televisore.dammiIlPiuCostoso;
+
 public class TestTelevisore {
     public static void main(String[] args){
         Televisore t = new Televisore("Samsung", "S456", 35.7, 180);
@@ -56,6 +58,8 @@ public class TestTelevisore {
         System.out.println("Test ePiuCaroDellaMedia");
         System.out.println(tv8.ePiuCaroDellaMedia(tvs));
         System.out.println("");
+
+        System.out.println(dammiIlPiuCostoso(tvs).getModello());
 
 
 

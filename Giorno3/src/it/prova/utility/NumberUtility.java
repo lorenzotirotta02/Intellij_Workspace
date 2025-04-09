@@ -17,6 +17,12 @@ public class NumberUtility {
             valoreCorrente = lista[i];
         }
         return lista;
-
+    }
+    public static int[] riduciArray (int[] input, int riduzione){
+        int[] valori = new int[input.length];
+        for(int i = 0; i < input.length; i++){
+            valori[i] = input[i] - 3;
+        }
+        return valori;
     }
 }

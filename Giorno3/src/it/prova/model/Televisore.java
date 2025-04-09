@@ -95,5 +95,15 @@ public class Televisore {
         }
         return false;
     }
+    public static Televisore dammiIlPiuCostoso(Televisore[] input){
+        Televisore piuCostoso = input[0];
+        for(int i = 0; i < input.length; i++){
+            if(input[i].getPrezzo() > piuCostoso.getPrezzo()){
+                piuCostoso = input[i];
+            }
+
+        }
+        return piuCostoso;
+    }
 
 }
