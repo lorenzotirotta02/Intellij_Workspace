@@ -23,5 +23,15 @@ public class TestStudente {
         System.out.println("Fine test almenoUnoHaLaMediaMiglioreDellaMia.....");
 
 
+        Studente francesca = new Studente("Francesca", "Neri", 19, 7.2);
+        Studente fabrizio = new Studente("Fabrizio", "Rossi", 12, 7.3);
+        Studente francescA = new Studente("Francesca", "Verdi", 11, 6.1);
+        Studente gaia = new Studente("Gaia", "Bianchi", 21, 9.5);
+        Studente[] elencoStudenti = {fabrizio, francescA, gaia};
+
+        System.out.println("Inizio test quantiOmonimiMinorenniHo.....");
+        System.out.println(francesca.quantiOmonimiMinorenniHo(elencoStudenti));
+        System.out.println("Fine test quantiOmonimiMinorenniHo.....");
+
     }
 }

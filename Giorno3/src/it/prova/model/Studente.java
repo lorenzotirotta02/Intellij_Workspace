@@ -53,7 +53,7 @@ public class Studente {
         }
         return true;
     }
-    public boolean almenoUnoHaLaMediaMiglioreDellaMia(Studente [] corso){
+    public boolean almenoUnoHaLaMediaMiglioreDellaMia(Studente[] corso){
         int count = 0;
         for(int i = 0; i < corso.length; i++){
             if(this.mediaScolastica < corso[i].getMediaScolastica()){
@@ -62,5 +62,13 @@ public class Studente {
         }
         return count == 1;
     }
-
+    public int quantiOmonimiMinorenniHo(Studente[] corso){
+        int count = 0;
+        for(int i = 0; i < corso.length; i++){
+            if(this.nome.equals(corso[i].getNome()) && corso[i].getEta() < 18){
+                count += 1;
+            }
+        }
+        return count;
+    }
 }
