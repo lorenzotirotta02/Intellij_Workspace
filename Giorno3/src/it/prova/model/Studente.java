@@ -53,4 +53,14 @@ public class Studente {
         }
         return true;
     }
+    public boolean almenoUnoHaLaMediaMiglioreDellaMia(Studente [] corso){
+        int count = 0;
+        for(int i = 0; i < corso.length; i++){
+            if(this.mediaScolastica < corso[i].getMediaScolastica()){
+                count += 1;
+            }
+        }
+        return count == 1;
+    }
+
 }
