@@ -71,4 +71,13 @@ public class Studente {
         }
         return count;
     }
+    public static int quanteMedieSopraLaSufficienza(Studente[] corso){
+        int count = 0;
+        for(int i = 0; i < corso.length; i++){
+            if(corso[i].getMediaScolastica() < 6.0){
+                count += 1;
+            }
+        }
+        return count;
+    }
 }

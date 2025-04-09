@@ -33,5 +33,15 @@ public class TestStudente {
         System.out.println(francesca.quantiOmonimiMinorenniHo(elencoStudenti));
         System.out.println("Fine test quantiOmonimiMinorenniHo.....");
 
+        Studente paolo = new Studente("Paolo", "Verdi", 20, 5.4);
+        Studente giuseppe = new Studente("Giuseppe", "Rossi", 18, 5.9);
+        Studente lorenza = new Studente("Lorenza", "Bianchi", 17, 4.9);
+        Studente[] listaStudenti = {paolo, giuseppe, lorenza};
+
+        System.out.println("Inizio test quanteMedieSopraLaSufficienza....");
+        int conteggio = Studente.quanteMedieSopraLaSufficienza(listaStudenti);
+        System.out.println(conteggio);
+        System.out.println("Fine test quanteMedieSopraLaSufficienza....");
+
     }
 }
