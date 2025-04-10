@@ -15,5 +15,8 @@ public class TestRaccoglitore {
     n.addToFogli(n2);
     System.out.println(n);
     System.out.println(n.removeFogli(1));
+    Raccoglitore n3 = new Raccoglitore("rosso", "25",
+            new Foglio[] {new Foglio("bassa", "Quadretti")});
+    System.out.println(n3.esisteAlmenoUnFoglioAQuadretti());
     }
 }

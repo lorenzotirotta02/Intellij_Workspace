@@ -59,4 +59,18 @@ public class Raccoglitore {
         this.setFogli(f);
         return true;
     }
+    public boolean esisteAlmenoUnFoglioAQuadretti(){
+        int count = 0;
+        String tipo = "Quadretti";
+        for(int i = 0; i < this.fogli.length; i++){
+            if(this.fogli[i].getTipologia().equals(tipo)){
+                count += 1;
+            }
+        }
+        if(count >= 1){
+            return true;
+        }
+        return false;
+    }
+
 }
