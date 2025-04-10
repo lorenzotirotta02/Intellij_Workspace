@@ -68,7 +68,9 @@ public class Persona {
     public int quantiCoabitanoNelMioStessoPalazzo(Persona[] elencoInput){
         int count = 0;
         for(int i = 0; i < elencoInput.length; i++){
-            if(this.indirizzo.equals(elencoInput[i].getIndirizzo())){
+            if(this.indirizzo.getCitta().equals(elencoInput[i].getIndirizzo().getCitta())
+                    && this.indirizzo.getCivico().equals(elencoInput[i].getIndirizzo().getCivico())
+                    && this.indirizzo.getVia().equals(elencoInput[i].getIndirizzo().getVia())){
                 count += 1;
             }
         }

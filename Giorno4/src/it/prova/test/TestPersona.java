@@ -40,7 +40,7 @@ public class TestPersona {
 
         Indirizzo indirizzoP1 = new Indirizzo("Venezia", "Via Roma", "4");
         Persona p10 = new Persona("Giulio", "Verdi", 45,indirizzoP1);
-        Indirizzo indirizzoP2 = new Indirizzo("Venezia", "Via Spagna", "4");
+        Indirizzo indirizzoP2 = new Indirizzo("Venezia", "Via Roma", "4");
         Persona p11 = new Persona("Lorenzo", "Neri", 43,indirizzoP2);
         Persona[] elencoInput = {p10, p11};
         Persona p12 = new Persona("Mario", "Rossi", 45, indirizzoP1);
