@@ -66,6 +66,15 @@ public class Spettatore {
     public boolean numeroSpettatoriMioSpettacoloSuperaAspettativa(Spettatore[] paganti, int aspettativa){
         return numeroSpettatoriDelMioStessoSpettacolo(paganti) > aspettativa;
     }
+    public static int contaQuantiSenzaBiglietto(Spettatore[] elencoSpettatori){
+        int count = 0;
+        for(int i = 0; i < elencoSpettatori.length; i++){
+            if(elencoSpettatori[i].getBiglietto() == null){
+                count += 1;
+            }
+        }
+        return count;
+    }
 
 
 

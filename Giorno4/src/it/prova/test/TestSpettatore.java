@@ -29,5 +29,13 @@ public class TestSpettatore {
 
         System.out.println("Inizio test numeroSpettatoriMioSpettacoloSuperaAspettativa....");
         System.out.println(s1.numeroSpettatoriMioSpettacoloSuperaAspettativa(elenco1, 5));
+
+        Spettatore[] elenco3 = {new Spettatore("Lorenzo", "Rossi", "991019",null)};
+        new Spettatore("Vincenzo","Verdi", "98909", new Biglietto("Teatro", 'a',"90",180));
+
+        System.out.println("Inizio test contaQuantiSenzaBiglietto....");
+        int conteggio = Spettatore.contaQuantiSenzaBiglietto(elenco3);
+        System.out.println(conteggio);
+        System.out.println("Fine test contaQuantiSenzaBiglietto....");
     }
 }
