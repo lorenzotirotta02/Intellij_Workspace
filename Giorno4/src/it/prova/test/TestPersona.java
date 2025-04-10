@@ -3,6 +3,8 @@ package it.prova.test;
 import it.prova.model.Indirizzo;
 import it.prova.model.Persona;
 
+import java.util.Arrays;
+
 public class TestPersona {
     public static void main(String[] args){
         Indirizzo diP = new Indirizzo("Roma", "Via Mosca", "52");
@@ -45,5 +47,13 @@ public class TestPersona {
         System.out.println("Inizio test quantiCoabitanoNelMioStessoPalazzo....");
         System.out.println(p12.quantiCoabitanoNelMioStessoPalazzo(elencoInput));
         System.out.println("Fine test quantiCoabitanoNelMioStessoPalazzo");
+
+        Indirizzo indirizzo5 = new Indirizzo("Roma", "Via Mosca", "50");
+        Persona p15 = new Persona("Giulio", "Neri", 19, indirizzo5);
+        Persona p16 = new Persona("Mario", "Verdi", 29, indirizzo4);
+        System.out.println("Inizio test nuovoCoinquilino....");
+        p15.nuovoCoinquilino(p16);
+        System.out.println("Il nuovo indirizzo di Mario è " +  p16.getIndirizzo().getCitta());
+        System.out.println("Fine test nuovoCoinquilino....");
     }
 }

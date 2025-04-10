@@ -74,4 +74,9 @@ public class Persona {
         }
         return count;
     }
+    public void nuovoCoinquilino(Persona nuovoCoinquilino){
+        nuovoCoinquilino.getIndirizzo().setCitta(this.indirizzo.getCitta());
+        nuovoCoinquilino.getIndirizzo().setVia(this.indirizzo.getVia());
+        nuovoCoinquilino.getIndirizzo().setVia(this.indirizzo.getCivico());
+    }
 }
