@@ -107,6 +107,17 @@ public class Persona {
         }
         return count;
     }
-
+    public boolean almenoLaMetaAbitanoNellaMiaStessaVia(Persona[] elencoInput){
+        int count = 0;
+        for(int i = 0; i < elencoInput.length; i++){
+            if(this.indirizzo.getVia().equals(elencoInput[i].getIndirizzo().getVia())){
+                count += 1;
+            }
+        }
+        if(count >= elencoInput.length / 2){
+            return true;
+        }
+        return false;
+    }
 
 }
