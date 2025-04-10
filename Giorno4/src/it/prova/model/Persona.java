@@ -81,4 +81,21 @@ public class Persona {
         nuovoCoinquilino.getIndirizzo().setVia(this.indirizzo.getVia());
         nuovoCoinquilino.getIndirizzo().setVia(this.indirizzo.getCivico());
     }
+    public static Indirizzo[] restituiscimiIndirizzi(Persona[] elenco){
+        int count = 0;
+        for(int i = 0; i < elenco.length; i++){
+            if(elenco[i].getEta() > 60){
+                count += 1;
+            }
+        }
+        Indirizzo[] listaRisultato = new Indirizzo[count];
+        int count2 = 0;
+        for(int i = 0; i < elenco.length; i++){
+            if(elenco[i].getEta() > 60){
+                listaRisultato[count2] = elenco[i].getIndirizzo();
+                count2 += 1;
+            }
+        }
+        return listaRisultato;
+    }
 }

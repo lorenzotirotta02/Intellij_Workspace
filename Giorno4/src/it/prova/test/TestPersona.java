@@ -20,7 +20,6 @@ public class TestPersona {
 
 
 
-        Indirizzo indirizzo4 = new Indirizzo("Roma", "Via Mosca", "53");
         Persona p2 = new Persona("Marco", "Rossi", 18, diP);
         Indirizzo indirizzo3 = new Indirizzo("Roma", "Via Mosca", "54");
         Persona p3 = new Persona("Gaia", "Bianchi", 18, diP);
@@ -49,11 +48,24 @@ public class TestPersona {
         System.out.println("Fine test quantiCoabitanoNelMioStessoPalazzo");
 
         Indirizzo indirizzo5 = new Indirizzo("Roma", "Via Mosca", "50");
+        Indirizzo indirizzo4 = new Indirizzo("Roma", "Via Mosca", "53");
         Persona p15 = new Persona("Giulio", "Neri", 19, indirizzo5);
-        Persona p16 = new Persona("Mario", "Verdi", 29, indirizzo4);
+        Persona p16 = new Persona("Mario", "Verdi", 69, indirizzo4);
         System.out.println("Inizio test nuovoCoinquilino....");
         p15.nuovoCoinquilino(p16);
         System.out.println("Il nuovo indirizzo di Mario è " +  p16.getIndirizzo().getCitta());
         System.out.println("Fine test nuovoCoinquilino....");
+
+        Persona[] elencoInput2 = {
+                new Persona("Giorgio", "Rossi", 89, new Indirizzo("Roma", "via Roma", "5")),
+                new Persona("Giorgio", "Rossi", 65, new Indirizzo("Roma", "via Roma", "5")),
+        };
+
+        System.out.println("Inizio test restituiscimiIndirizzi....");
+        Indirizzo[] elenco4 = Persona.restituiscimiIndirizzi(elencoInput2);
+        for(int i = 0; i < elenco4.length; i++){
+            System.out.println(elenco4[i].getCitta() + "," + elenco4[i].getVia() + "," + elenco4[i].getCivico());
+        }
+
     }
 }
