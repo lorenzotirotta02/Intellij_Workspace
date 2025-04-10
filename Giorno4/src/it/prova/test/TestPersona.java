@@ -66,6 +66,14 @@ public class TestPersona {
         for(int i = 0; i < elenco4.length; i++){
             System.out.println(elenco4[i].getCitta() + "," + elenco4[i].getVia() + "," + elenco4[i].getCivico());
         }
+        System.out.println("Inizio test quantiMieiOmonimiNellaMiaStessaCitta...");
+        Persona[] elencoInput3 = {
+                new Persona("Giorgio", "Rossi", 89, new Indirizzo("Roma", "via Roma", "5")),
+                new Persona("Gino", "Rossi", 65, new Indirizzo("Roma", "via Roma", "5")),
+        };
+        Persona paolo = new Persona("Gino", "Gialli", 18, new Indirizzo("Roma", "via roma", "5"));
+        System.out.println(paolo.quantiMieiOmonimiNellaMiaStessaCitta(elencoInput3));
+        System.out.println("Fine test quantiMieiOmonimiNellaMiaStessaCitta....");
 
     }
 }

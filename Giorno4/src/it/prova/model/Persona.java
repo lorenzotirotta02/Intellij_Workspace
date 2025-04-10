@@ -98,4 +98,15 @@ public class Persona {
         }
         return listaRisultato;
     }
+    public int quantiMieiOmonimiNellaMiaStessaCitta(Persona[] elencoInput){
+        int count = 0;
+        for(int i= 0; i < elencoInput.length; i++){
+            if(this.nome.equals(elencoInput[i]. getNome()) && this.indirizzo.getCitta().equals(elencoInput[i].getIndirizzo().getCitta())){
+                count += 1;
+            }
+        }
+        return count;
+    }
+
+
 }
