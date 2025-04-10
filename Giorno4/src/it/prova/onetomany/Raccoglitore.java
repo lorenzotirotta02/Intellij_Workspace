@@ -72,5 +72,15 @@ public class Raccoglitore {
         }
         return false;
     }
+    public int quantiFogliDiAltaQualita(){
+        int count = 0;
+        String qualita = "Alta";
+        for(int i = 0;i < this.fogli.length; i++){
+            if(this.fogli[i].getQualita().equalsIgnoreCase(qualita)){
+                count += 1;
+            }
+        }
+        return count;
+    }
 
 }

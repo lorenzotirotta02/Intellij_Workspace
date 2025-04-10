@@ -18,5 +18,10 @@ public class TestRaccoglitore {
     Raccoglitore n3 = new Raccoglitore("rosso", "25",
             new Foglio[] {new Foglio("bassa", "Quadretti")});
     System.out.println(n3.esisteAlmenoUnFoglioAQuadretti());
+
+    Raccoglitore n4 = new Raccoglitore("rosso", "24",
+            new Foglio[]{new Foglio("alta", "righe"), new Foglio("media", "quadretti")});
+
+    System.out.println("I fogli di alta qualità sono " + n4.quantiFogliDiAltaQualita());
     }
 }
