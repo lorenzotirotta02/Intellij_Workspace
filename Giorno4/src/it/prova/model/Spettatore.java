@@ -75,6 +75,15 @@ public class Spettatore {
         }
         return count;
     }
+    public int contaQuantiNellaMiaStessaFila(Spettatore[] elencoSpettatori){
+        int count = 0;
+        for(int i = 0; i < elencoSpettatori.length; i++){
+            if(this.getBiglietto().getLetteraFila() == elencoSpettatori[i].getBiglietto().getLetteraFila()){
+                count += 1;
+            }
+        }
+        return count;
+    }
 
 
 

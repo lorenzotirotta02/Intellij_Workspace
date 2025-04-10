@@ -37,5 +37,13 @@ public class TestSpettatore {
         int conteggio = Spettatore.contaQuantiSenzaBiglietto(elenco3);
         System.out.println(conteggio);
         System.out.println("Fine test contaQuantiSenzaBiglietto....");
+
+        Spettatore[] elencot = {new Spettatore("Mario", "Rossi", "4444", new Biglietto("1", 'A', "1", 15)),
+                new Spettatore("Paolo", "Rossi", "4444", new Biglietto("1", 'A', "1", 15)),
+                new Spettatore("Luigi", "Rossi", "4444", new Biglietto("1", 'A', "1", 15))};
+        Spettatore s3 = new Spettatore("Mario", "Rossi", "4444",
+                new Biglietto("1", 'A', "1", 15));
+        System.out.println("Inizio test contaQuantiNellaMiaStessaFila...");
+        System.out.println(s3.contaQuantiNellaMiaStessaFila(elencot));
     }
 }
