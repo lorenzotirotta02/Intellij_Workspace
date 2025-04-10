@@ -83,12 +83,8 @@ public class Raccoglitore {
         return count;
     }
     public boolean stessoColoreENumeroFogliDi(Raccoglitore altroRaccoglitore) {
-        for (int i = 0; i < this.fogli.length; i++) {
-            if (this.colore.equalsIgnoreCase(altroRaccoglitore.getColore()) && this.fogli.length == altroRaccoglitore.fogli.length) {
-                return true;
-            }
-        }
-        return false;
+            return this.colore.equalsIgnoreCase(altroRaccoglitore.getColore()) &&
+                    this.fogli.length == altroRaccoglitore.fogli.length;
     }
 
 }
