@@ -1,0 +1,19 @@
+package it.prova.test;
+
+import it.prova.onetomany.Foglio;
+import it.prova.onetomany.Raccoglitore;
+
+public class TestRaccoglitore {
+    public static void main(String[] args){
+        Raccoglitore n = new Raccoglitore("rosso", "25",
+                new Foglio[] {new Foglio("bassa", "quadretti")});
+        Foglio n2 = new Foglio("media", "righe");
+
+
+
+
+    n.addToFogli(n2);
+    System.out.println(n);
+    System.out.println(n.removeFogli(1));
+    }
+}
