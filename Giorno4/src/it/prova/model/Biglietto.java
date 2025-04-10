@@ -44,4 +44,13 @@ public class Biglietto {
     public void setPrezzo(int prezzo) {
         this.prezzo = prezzo;
     }
+    public static Biglietto trovaIlPiuEconomico(Biglietto[] elencoBiglietti){
+        Biglietto b = elencoBiglietti[0];
+        for(int i = 1; i < elencoBiglietti.length; i++){
+            if(b.getPrezzo() > elencoBiglietti[i].getPrezzo()){
+                 b = elencoBiglietti[i];
+            }
+        }
+        return b;
+    }
 }
