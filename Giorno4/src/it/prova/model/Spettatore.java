@@ -63,4 +63,9 @@ public class Spettatore {
         }
         return count;
     }
+    public boolean numeroSpettatoriMioSpettacoloSuperaAspettativa(Spettatore[] paganti, int aspettativa){
+        return numeroSpettatoriDelMioStessoSpettacolo(paganti) > aspettativa;
+    }
+
+
 }

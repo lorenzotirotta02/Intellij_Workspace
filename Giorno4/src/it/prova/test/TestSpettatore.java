@@ -26,5 +26,8 @@ public class TestSpettatore {
         System.out.println("Inizio test numeroSpettatoriDelMioStessoSpettacolo...");
         System.out.println(s1.numeroSpettatoriDelMioStessoSpettacolo(elenco1));
         System.out.println("Fine test numeroSpettatoriDelMioStessoSpettacolo....");
+
+        System.out.println("Inizio test numeroSpettatoriMioSpettacoloSuperaAspettativa....");
+        System.out.println(s1.numeroSpettatoriMioSpettacoloSuperaAspettativa(elenco1, 5));
     }
 }
