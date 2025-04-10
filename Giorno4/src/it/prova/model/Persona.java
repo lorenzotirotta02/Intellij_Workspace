@@ -65,4 +65,13 @@ public class Persona {
         }
         return true;
     }
+    public int quantiCoabitanoNelMioStessoPalazzo(Persona[] elencoInput){
+        int count = 0;
+        for(int i = 0; i < elencoInput.length; i++){
+            if(this.indirizzo.equals(elencoInput[i].getIndirizzo())){
+                count += 1;
+            }
+        }
+        return count;
+    }
 }

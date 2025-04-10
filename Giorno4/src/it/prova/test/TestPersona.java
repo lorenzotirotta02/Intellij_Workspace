@@ -4,7 +4,7 @@ import it.prova.model.Indirizzo;
 import it.prova.model.Persona;
 
 public class TestPersona {
-    private static void main(String[] args){
+    public static void main(String[] args){
         Indirizzo diP = new Indirizzo("Roma", "Via Mosca", "52");
         Persona p = new Persona("Lorenzo", "Tirotta", 18, diP);
 
@@ -35,5 +35,15 @@ public class TestPersona {
         System.out.println("Inizio test sonoTuttiPiuAnziani....");
         System.out.println(p.sonoTuttiPiuAnziani(elenco2));
         System.out.println("Fine test sonoTuttiPiuAnziani....");
+
+        Indirizzo indirizzoP1 = new Indirizzo("Venezia", "Via Roma", "4");
+        Persona p10 = new Persona("Giulio", "Verdi", 45,indirizzoP1);
+        Indirizzo indirizzoP2 = new Indirizzo("Venezia", "Via Spagna", "4");
+        Persona p11 = new Persona("Lorenzo", "Neri", 43,indirizzoP2);
+        Persona[] elencoInput = {p10, p11};
+        Persona p12 = new Persona("Mario", "Rossi", 45, indirizzoP1);
+        System.out.println("Inizio test quantiCoabitanoNelMioStessoPalazzo....");
+        System.out.println(p12.quantiCoabitanoNelMioStessoPalazzo(elencoInput));
+        System.out.println("Fine test quantiCoabitanoNelMioStessoPalazzo");
     }
 }
