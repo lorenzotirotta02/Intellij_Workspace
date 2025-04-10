@@ -53,4 +53,12 @@ public class Biglietto {
         }
         return b;
     }
+    public boolean bigliettoAncoraInvenduto(Biglietto[] elencoBigliettiInvenduti){
+        for(int i = 0; i < elencoBigliettiInvenduti.length; i++){
+            if(this.letteraFila == elencoBigliettiInvenduti[i].getLetteraFila() && this.nomeSpettacolo.equals(elencoBigliettiInvenduti[i].getNomeSpettacolo()) && this.numeroPosto.equals(elencoBigliettiInvenduti[i].getNumeroPosto())){
+                return true;
+            }
+        }
+        return false;
+    }
 }

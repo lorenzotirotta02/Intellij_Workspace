@@ -13,5 +13,12 @@ public class TestBiglietto {
         System.out.println(economico.getNomeSpettacolo() + "," + economico.getLetteraFila());
         System.out.println("Fine test trovaIlPiuEconomico....");
 
+        Biglietto b3 = new Biglietto("Teatro", 'A', "90", 179);
+        Biglietto b4 = new Biglietto("Teatro", 'A', "91", 180);
+        Biglietto b5 = new Biglietto("Teatro", 'A', "91", 180);
+        Biglietto[] elenco1 = {b3,b4};
+        System.out.println("Inizio test bigliettoAncoraInvenduto....");
+        System.out.println(b5.bigliettoAncoraInvenduto(elenco1));
+        System.out.println("Fine test bigliettoAncoraInvenduto....");
     }
 }
