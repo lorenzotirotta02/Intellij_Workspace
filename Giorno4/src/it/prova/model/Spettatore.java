@@ -84,6 +84,14 @@ public class Spettatore {
         }
         return count;
     }
+    public boolean eIlPiuCaroTraIBigliettiDeiPaganti(Spettatore[] elencoSpettatoriPaganti){
+        for(int i = 0; i < elencoSpettatoriPaganti.length; i++){
+            if(this.biglietto.getPrezzo() < elencoSpettatoriPaganti[i].getBiglietto().getPrezzo()){
+                return false;
+            }
+        }
+        return true;
+    }
 
 
 

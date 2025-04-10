@@ -45,5 +45,13 @@ public class TestSpettatore {
                 new Biglietto("1", 'A', "1", 15));
         System.out.println("Inizio test contaQuantiNellaMiaStessaFila...");
         System.out.println(s3.contaQuantiNellaMiaStessaFila(elencot));
+
+        Spettatore[] elencob = {new Spettatore("Mario", "Rossi", "4444", new Biglietto("1", 'A', "1", 15)),
+                new Spettatore("Paolo", "Rossi", "4444", new Biglietto("1", 'A', "1", 5)),
+                new Spettatore("Luigi", "Rossi", "4444", new Biglietto("1", 'A', "1", 25))};
+        Spettatore s4 = new Spettatore("Mario", "Rossi", "4444",
+                new Biglietto("1", 'A', "1", 10));
+        System.out.println("Inizio test contaQuantiNellaMiaStessaFila...");
+        System.out.println(s4.eIlPiuCaroTraIBigliettiDeiPaganti(elencob));
     }
 }
