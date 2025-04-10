@@ -20,5 +20,13 @@ public class TestBiglietto {
         System.out.println("Inizio test bigliettoAncoraInvenduto....");
         System.out.println(b5.bigliettoAncoraInvenduto(elenco1));
         System.out.println("Fine test bigliettoAncoraInvenduto....");
+
+        Biglietto[] elencoB = {new Biglietto("Teatro", 'a', "90", 190),
+        new Biglietto("Cinema", 'a', "91",170)};
+        String s = "Teatro";
+        boolean L = Biglietto.sonoTuttiBigliettiPerLoSpettacoloIntitolato(elencoB, s);
+        System.out.println("Inizio test sonoTuttiBigliettiPerLoSpettacoloIntitolato...");
+        System.out.println(L);
+        System.out.println("Fine test sonoTuttiBigliettiPerLoSpettacoloIntitolato...");
     }
 }

@@ -61,4 +61,13 @@ public class Biglietto {
         }
         return false;
     }
+    public static boolean sonoTuttiBigliettiPerLoSpettacoloIntitolato(Biglietto[] elencoBiglietti, String titoloSpettacoloDaRicercare){
+        for(int i = 0; i < elencoBiglietti.length; i++){
+            if(elencoBiglietti[i].getNomeSpettacolo() != titoloSpettacoloDaRicercare){
+                return false;
+            }
+        }
+        return true;
+    }
+
 }
