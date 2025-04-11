@@ -11,7 +11,13 @@ public class IterationUtility {
             }
         }
         return numeri;
-
-
+    }
+    public static boolean verificaSeMultipliTraLoro(int[] valori, int[] multipli){
+        for(int i = 0; i < valori.length; i++){
+            if(multipli[i] % valori[i] == 0){
+                return true;
+            }
+        }
+        return false;
     }
 }

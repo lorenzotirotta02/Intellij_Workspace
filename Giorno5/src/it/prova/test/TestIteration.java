@@ -10,5 +10,11 @@ public class TestIteration {
         int incremento = 4;
         int[] numeri2 = IterationUtility.incrementaOgniElemento(array, incremento);
         System.out.println(Arrays.toString(numeri2));
+
+        int[] valori1 = {4, 8, 9, 12};
+        int[] valori2 = {3, 8, 1, 8};
+        boolean contiene = IterationUtility.verificaSeMultipliTraLoro(valori1, valori2);
+        System.out.println(contiene);
     }
+
 }
