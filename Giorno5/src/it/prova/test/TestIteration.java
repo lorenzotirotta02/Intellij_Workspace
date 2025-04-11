@@ -24,6 +24,10 @@ public class TestIteration {
         int[] listaNumeri2 = {1, 2, 3, 4};
         boolean conto = IterationUtility.calcolaSeTantiDispariQuantiPari(listaNumeri2);
         System.out.println(conto);
+
+        int[] listNumerii = {9000, 1, 1, 450};
+        boolean check = IterationUtility.verificaSeDifferenzaPosizioniPariConDispariRisultaPositivo(listNumerii);
+        System.out.println(check);
     }
 
 }

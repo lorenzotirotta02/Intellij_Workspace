@@ -42,5 +42,20 @@ public class IterationUtility {
         }
         return false;
     }
+    public static boolean verificaSeDifferenzaPosizioniPariConDispariRisultaPositivo(int[] input){
+        int somma1 = 0;
+        int somma2 = 0;
+        for(int i = 0; i < input.length; i++){
+            if(i == 0 || i % 2 == 0){
+                somma1 += input[i];
+            }else{
+                somma2 += input[i];
+            }
+        }
+        if(somma1 - somma2 > 0){
+            return true;
+        }
+        return false;
+    }
 
 }
