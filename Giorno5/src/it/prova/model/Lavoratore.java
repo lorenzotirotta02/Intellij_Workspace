@@ -30,4 +30,13 @@ public class Lavoratore {
     public String percepisco(){
         return "N.D.";
     }
+    public static int quantiPadri(Lavoratore[] lavoratores){
+        int count = 0;
+        for(int i = 0; i < lavoratores.length; i++){
+            if(lavoratores[i] instanceof Lavoratore){
+                count += 1;
+            }
+        }
+        return count;
+    }
 }

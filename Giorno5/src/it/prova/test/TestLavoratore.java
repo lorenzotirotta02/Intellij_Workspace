@@ -10,11 +10,17 @@ public class TestLavoratore {
         Lavoratore l = new Lavoratore("Mario" ,"Rossi");
         System.out.println(l.percepisco());
 
-        Lavoratore p = new Operaio("Mario", "Bianchi", 1800);
+        Operaio p = new Operaio("Mario", "Bianchi", 1800);
         System.out.println(p.percepisco());
 
         Lavoratore x = new Volontario("Giacomo", "Neri", "Unicef");
         System.out.println(x.percepisco());
 
+        Lavoratore[] lavoratores = {l, p, x};
+        int count = Lavoratore.quantiPadri(lavoratores);
+        System.out.println(count);
+
+        int conteggio = Operaio.contaQuantiFigli(lavoratores);
+        System.out.println(conteggio);
     }
 }

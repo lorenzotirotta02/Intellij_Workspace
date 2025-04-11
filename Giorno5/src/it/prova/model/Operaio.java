@@ -20,4 +20,13 @@ public class Operaio extends Lavoratore{
     public String percepisco() {
         return "Io percepisco " + salario;
     }
+    public static int contaQuantiFigli(Lavoratore []input){
+        int count = 0;
+        for(int i = 0; i < input.length; i++){
+            if(input[i] instanceof Operaio){
+                count += 1;
+            }
+        }
+        return count;
+    }
 }
