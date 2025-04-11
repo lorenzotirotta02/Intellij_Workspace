@@ -38,6 +38,11 @@ public class TestIteration {
         int[] lista2 = {4000, 1000};
         int[] risultato = IterationUtility.unioneDueArrayInUno(list1, lista2);
         System.out.println(Arrays.toString(risultato));
+
+        String ciao = "CIAO";
+        int index = 77;
+        String result = IterationUtility.creaStringaAlContrarioConIndice(ciao, index);
+        System.out.println(result);
     }
 
 }
