@@ -20,6 +20,10 @@ public class TestIteration {
         int[] listaNumeri = {3, 8, 1, 8};
         int[] prodottoVettoriale = IterationUtility.prodottoVettoriale(array1, listaNumeri);
         System.out.println(Arrays.toString(prodottoVettoriale));
+
+        int[] listaNumeri2 = {1, 2, 3, 4};
+        boolean conto = IterationUtility.calcolaSeTantiDispariQuantiPari(listaNumeri2);
+        System.out.println(conto);
     }
 
 }

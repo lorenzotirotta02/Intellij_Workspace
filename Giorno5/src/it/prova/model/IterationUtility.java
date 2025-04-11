@@ -27,5 +27,20 @@ public class IterationUtility {
         }
         return input3;
     }
+    public static boolean calcolaSeTantiDispariQuantiPari(int[] input){
+        int contaPari = 0;
+        int contaDispari = 0;
+        for(int i = 0; i < input.length; i++){
+            if(input[i] % 2 == 0 && input[i] != 0){
+                contaPari += 1;
+            }else{
+                contaDispari += 1;
+            }
+        }
+        if(contaPari == contaDispari){
+            return true;
+        }
+        return false;
+    }
 
 }
