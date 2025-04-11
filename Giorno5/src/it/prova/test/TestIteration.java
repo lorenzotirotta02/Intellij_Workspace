@@ -34,6 +34,10 @@ public class TestIteration {
         int conteggio = IterationUtility.quantiSonoDivisibiliPer(list, numero);
         System.out.println(conteggio);
 
+        int[] list1 = {9000, 1, 1, 450, 90, 55, 60};
+        int[] lista2 = {4000, 1000};
+        int[] risultato = IterationUtility.unioneDueArrayInUno(list1, lista2);
+        System.out.println(Arrays.toString(risultato));
     }
 
 }

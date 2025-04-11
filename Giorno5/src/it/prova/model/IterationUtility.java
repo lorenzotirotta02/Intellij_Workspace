@@ -66,5 +66,17 @@ public class IterationUtility {
         }
         return conto;
     }
+    public static int[] unioneDueArrayInUno(int[] valori, int[] numeri){
+        int[] valori2 = new int[valori.length + numeri.length];
+
+        for(int i = 0; i < valori2.length;i++){
+            if(i < valori.length) {
+                valori2[i] = valori[i];
+            }else{
+                valori2[i] = numeri[i - valori.length];
+            }
+        }
+        return valori2;
+    }
 
 }
