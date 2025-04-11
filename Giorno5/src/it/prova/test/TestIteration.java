@@ -15,6 +15,11 @@ public class TestIteration {
         int[] valori2 = {3, 8, 1, 8};
         boolean contiene = IterationUtility.verificaSeMultipliTraLoro(valori1, valori2);
         System.out.println(contiene);
+
+        int[] array1 = {4, 8, 9, 12};
+        int[] listaNumeri = {3, 8, 1, 8};
+        int[] prodottoVettoriale = IterationUtility.prodottoVettoriale(array1, listaNumeri);
+        System.out.println(Arrays.toString(prodottoVettoriale));
     }
 
 }

@@ -20,4 +20,12 @@ public class IterationUtility {
         }
         return false;
     }
+    public static int[] prodottoVettoriale (int[] input1, int[] input2){
+        int[] input3 = new int[input1.length];
+        for(int i = 0; i < input2.length; i++){
+            input3[i] = input1[i] * input2[i];
+        }
+        return input3;
+    }
+
 }
