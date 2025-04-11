@@ -28,6 +28,12 @@ public class TestIteration {
         int[] listNumerii = {9000, 1, 1, 450};
         boolean check = IterationUtility.verificaSeDifferenzaPosizioniPariConDispariRisultaPositivo(listNumerii);
         System.out.println(check);
+
+        int[] list = {9000, 1, 1, 450, 90, 55, 60};
+        int numero = 5;
+        int conteggio = IterationUtility.quantiSonoDivisibiliPer(list, numero);
+        System.out.println(conteggio);
+
     }
 
 }

@@ -57,5 +57,14 @@ public class IterationUtility {
         }
         return false;
     }
+    public static int quantiSonoDivisibiliPer(int[] valori, int divisore){
+        int conto = 0;
+        for(int i = 0; i < valori.length; i++) {
+            if (valori[i] % divisore == 0) {
+                conto += 1;
+            }
+        }
+        return conto;
+    }
 
 }
