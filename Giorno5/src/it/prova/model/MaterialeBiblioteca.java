@@ -57,6 +57,7 @@ public class MaterialeBiblioteca {
             System.out.println("Il materiale è stato restituito");
             this.disponibile = true;
         }
+        System.out.println("Il materiale è disponibile");
         return this.disponibile;
     }
     public int calcolaTempoPrestitoMassimo(){

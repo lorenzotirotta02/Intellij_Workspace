@@ -1,5 +1,6 @@
 package it.prova.test;
 
+import it.prova.model.Dvd;
 import it.prova.model.Libro;
 import it.prova.model.MaterialeBiblioteca;
 import it.prova.model.Rivista;
@@ -23,5 +24,13 @@ public class TestMaterialeBiblioteca {
         System.out.println(rivista.prestito());
         System.out.println("La rivista sarà disponibile in " + rivista.calcolaTempoPrestitoMassimo() + " giorni");
         System.out.println(rivista.restituzione());
+
+        //TEST DVD
+        Dvd dvd = new Dvd("Terminator", "James Cameron", false, "129", 107);
+        System.out.println(dvd.restituzione());
+        System.out.println(dvd.prestito());
+        System.out.println("Il dvd sarà disponibile in " + dvd.calcolaTempoPrestitoMassimo() + " giorni");
+
+
     }
 }

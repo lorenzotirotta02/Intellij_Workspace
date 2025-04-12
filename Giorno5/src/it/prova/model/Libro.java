@@ -25,6 +25,21 @@ public class Libro extends MaterialeBiblioteca{
     public void setGenere(String genere) {
         this.genere = genere;
     }
+    @Override
+    public boolean prestito(){
+        this.disponibile = !this.disponibile;
+        System.out.println("Il libro è stato prestato");
+        return this.disponibile;
+    }
+    @Override
+    public boolean restituzione(){
+        if(!this.disponibile){
+            System.out.println("Il libro è stato restituito");
+            this.disponibile = true;
+        }
+        System.out.println("Il libro è disponibile");
+        return this.disponibile;
+    }
 
     @Override
     public int calcolaTempoPrestitoMassimo() {

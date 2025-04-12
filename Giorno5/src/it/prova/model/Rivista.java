@@ -32,6 +32,22 @@ public class Rivista extends MaterialeBiblioteca{
     }
 
     @Override
+    public boolean prestito(){
+        this.disponibile = !this.disponibile;
+        System.out.println("La rivista è stato rivista");
+        return this.disponibile;
+    }
+
+    public boolean restituzione(){
+        if(!this.disponibile){
+            System.out.println("La rivista è stato restituita");
+            this.disponibile = true;
+        }
+        System.out.println("Il rivista è disponibile");
+        return this.disponibile;
+    }
+
+    @Override
     public int calcolaTempoPrestitoMassimo() {
         int annoAttuale = Year.now().getValue();
         if(this.annoPublicazione == annoAttuale){
