@@ -6,8 +6,8 @@ public class MaterialeBiblioteca {
     protected String codiceIdentificativo;
     protected boolean disponibile;
 
-//    public MaterialeBiblioteca() {
-//    }
+    public MaterialeBiblioteca() {
+    }
 
     public MaterialeBiblioteca(String titolo, String autore, boolean disponibile, String codiceIdentificativo) {
         this.titolo = titolo;
@@ -49,10 +49,12 @@ public class MaterialeBiblioteca {
     }
     public boolean prestito(){
         this.disponibile = !this.disponibile;
+        System.out.println("Il materiale è stato prestato");
         return this.disponibile;
     }
     public boolean restituzione(){
         if(!this.disponibile){
+            System.out.println("Il materiale è stato restituito");
             this.disponibile = true;
         }
         return this.disponibile;
