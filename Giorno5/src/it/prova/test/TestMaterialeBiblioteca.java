@@ -2,6 +2,7 @@ package it.prova.test;
 
 import it.prova.model.Libro;
 import it.prova.model.MaterialeBiblioteca;
+import it.prova.model.Rivista;
 
 public class TestMaterialeBiblioteca {
     public static void main(String[] args){
@@ -17,6 +18,10 @@ public class TestMaterialeBiblioteca {
         System.out.println("Il libro sarà disponibile in " + libro.calcolaTempoPrestitoMassimo() + " giorni");
         System.out.println(libro.restituzione());
 
-
+        //TEST RIVISTA
+        Rivista rivista = new Rivista("Forbes", "Marco Bianchi", true, "1904", "14", 2025);
+        System.out.println(rivista.prestito());
+        System.out.println("La rivista sarà disponibile in " + rivista.calcolaTempoPrestitoMassimo() + " giorni");
+        System.out.println(rivista.restituzione());
     }
 }
