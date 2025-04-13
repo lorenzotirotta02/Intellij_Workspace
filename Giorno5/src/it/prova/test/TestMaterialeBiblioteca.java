@@ -1,9 +1,8 @@
 package it.prova.test;
 
-import it.prova.model.Dvd;
-import it.prova.model.Libro;
-import it.prova.model.MaterialeBiblioteca;
-import it.prova.model.Rivista;
+import it.prova.model.*;
+
+import java.util.Arrays;
 
 public class TestMaterialeBiblioteca {
     public static void main(String[] args){
@@ -31,6 +30,30 @@ public class TestMaterialeBiblioteca {
         System.out.println(dvd.prestito());
         System.out.println("Il dvd sarà disponibile in " + dvd.calcolaTempoPrestitoMassimo() + " giorni");
 
+        //TEST METODO AGGIUNGIMATERIALE
+        MaterialeBiblioteca[] lista = {dvd, libro, rivista};
+        Biblioteca biblioteca = new Biblioteca(lista);
+        biblioteca.aggiungiMateriale2(libro1);
+        System.out.println(Arrays.toString(biblioteca.getMateriali()));
 
+        //TEST METODO CERCAMATERIALEPERTITOLO
+        MaterialeBiblioteca[] lista2 = {dvd, libro, rivista, libro1};
+        Biblioteca biblioteca1 = new Biblioteca(lista2);
+        System.out.println(Arrays.toString(biblioteca1.cercaMaterialePerTitolo("Terminator")));
+
+        //TEST METODO ELENCAMATERIALIDISPONBILI
+        Rivista rivista2 = new Rivista("Finance", "Alessandro Rossi", false, "19098", "190", 2019);
+        Libro libro2 = new Libro("1984", "George Orwell", true, "145", 300, "Romanzo");
+        MaterialeBiblioteca[] lista3 = {libro1, libro2, rivista2};
+        Biblioteca biblioteca2 = new Biblioteca(lista3);
+        System.out.println(Arrays.toString(biblioteca2.elencaMaterialiDisponibili()));
+
+        //TEST METODO ELENCAMATERIALIINPRESTITO
+        Dvd dvd1 = new Dvd("Fast And Furious", "Warner", false, "1908243", 190);
+        Rivista rivista3 = new Rivista("Finance", "Alessandro Rossi", false, "19098", "190", 2019);
+        Libro libro3 = new Libro("1984", "George Orwell", true, "145", 300, "Romanzo");
+        MaterialeBiblioteca[] lista4 = {libro3, rivista3, dvd1};
+        Biblioteca biblioteca3 = new Biblioteca(lista4);
+        System.out.println(Arrays.toString(biblioteca3.elencaMaterialiInPrestito()));
     }
 }

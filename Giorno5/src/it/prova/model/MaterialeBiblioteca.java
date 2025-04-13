@@ -12,7 +12,7 @@ public class MaterialeBiblioteca {
     public MaterialeBiblioteca(String titolo, String autore, boolean disponibile, String codiceIdentificativo) {
         this.titolo = titolo;
         this.autore = autore;
-        this.disponibile = true;
+        this.disponibile = disponibile;
         this.codiceIdentificativo = codiceIdentificativo;
     }
 
@@ -62,5 +62,12 @@ public class MaterialeBiblioteca {
     }
     public int calcolaTempoPrestitoMassimo(){
         return 14;
+    }
+    @Override
+    public String toString() {
+        return "Titolo: " + titolo +
+                ", Autore: " + autore +
+                ", Codice ID: " + codiceIdentificativo +
+                ", Disponibile: " + disponibile;
     }
 }

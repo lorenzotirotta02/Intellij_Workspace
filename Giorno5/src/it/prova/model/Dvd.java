@@ -36,4 +36,12 @@ public class Dvd extends MaterialeBiblioteca{
     public int calcolaTempoPrestitoMassimo() {
         return 7;
     }
+    @Override
+    public String toString() {
+        return "Titolo: " + titolo +
+                ", Autore: " + autore +
+                ", Codice ID: " + codiceIdentificativo +
+                ", Disponibile: " + disponibile +
+                ", Durata: " + durata;
+    }
 }

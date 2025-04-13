@@ -50,4 +50,13 @@ public class Libro extends MaterialeBiblioteca{
             default -> 30;
         };
     }
+    @Override
+    public String toString() {
+        return "Titolo: " + titolo +
+                ", Autore: " + autore +
+                ", Codice ID: " + codiceIdentificativo +
+                ", Disponibile: " + disponibile +
+                ", numeroPagine: " + numeroPagine +
+                ", genere: " + genere;
+    }
 }

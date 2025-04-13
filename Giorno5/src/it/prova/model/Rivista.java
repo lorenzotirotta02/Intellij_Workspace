@@ -55,4 +55,13 @@ public class Rivista extends MaterialeBiblioteca{
         }
         return 14;
     }
+    @Override
+    public String toString() {
+        return "Titolo: " + titolo +
+                ", Autore: " + autore +
+                ", Codice ID: " + codiceIdentificativo +
+                ", Disponibile: " + disponibile +
+                ", numeroEdizione: " + numeroEdizione +
+                ", annoPubblicazione: " + annoPublicazione;
+    }
 }
