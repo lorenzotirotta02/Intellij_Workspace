@@ -3,9 +3,12 @@ package it.prova.model;
 public class TriangoloEquilatero extends FiguraGeometrica{
     private int ipotenusa;
 
-    public TriangoloEquilatero(int base, int altezza, int ipotenusa) {
-        super(base, altezza);
+    public TriangoloEquilatero(int base, int lato, int ipotenusa) {
+        super(base, lato);
         this.ipotenusa = ipotenusa;
+    }
+    public TriangoloEquilatero(int base, int lato){
+        super(base, lato);
     }
 
     public int getIpotenusa() {
@@ -31,18 +34,8 @@ public class TriangoloEquilatero extends FiguraGeometrica{
         }
         return -1;
     }
-//    public int calcolaAltezza(){
-//        int altezza = 0;
-//        int metaBase = 0;
-//        int newBase = 0;
-//        if(this.lato > 0 && this.base > 0){
-//            metaBase = lato / 2;
-//            newBase = (int) Math.pow(metaBase, 2);
-//            altezza = Math.sqrt(newBase)
-//        }
-//    }
-//    public int teoremaDiPitagora(){
-//
-//    }
+    public int teoremaDiPitagora(){
+        return 4;
+    }
 
 }

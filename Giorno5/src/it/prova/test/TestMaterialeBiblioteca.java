@@ -33,7 +33,7 @@ public class TestMaterialeBiblioteca {
         //TEST METODO AGGIUNGIMATERIALE
         MaterialeBiblioteca[] lista = {dvd, libro, rivista};
         Biblioteca biblioteca = new Biblioteca(lista);
-        biblioteca.aggiungiMateriale2(libro1);
+        biblioteca.aggiungiMateriale    (libro1);
         System.out.println(Arrays.toString(biblioteca.getMateriali()));
 
         //TEST METODO CERCAMATERIALEPERTITOLO
