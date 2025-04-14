@@ -5,4 +5,6 @@ public interface Volatile {
     public static void performFly(Volatile input){
         input.vola();
     }
+    public String stampaProprieta();
+    public boolean eUgualeA(Volatile altroVolatile);
 }
