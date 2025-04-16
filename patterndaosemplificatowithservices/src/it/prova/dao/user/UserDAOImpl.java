@@ -283,7 +283,7 @@ public class UserDAOImpl extends AbstractMySQLDAO implements UserDAO {
 			ps.setString(1, cognomeInput);
 			ps.setString(2, inizialeNomeInput + "%");
 			try (ResultSet rs = ps.executeQuery()) {
-				if (rs.next()) {
+				while(rs.next()) {
 					User result = new User();
 					result.setNome(rs.getString("NOME"));
 					result.setCognome(rs.getString("COGNOME"));
@@ -293,8 +293,6 @@ public class UserDAOImpl extends AbstractMySQLDAO implements UserDAO {
 							rs.getDate("DATECREATED") != null ? rs.getDate("DATECREATED").toLocalDate() : null);
 					result.setId(rs.getLong("ID"));
 					risultati.add(result);
-				} else {
-					risultati = null;
 				}
 			} // niente catch qui
 
