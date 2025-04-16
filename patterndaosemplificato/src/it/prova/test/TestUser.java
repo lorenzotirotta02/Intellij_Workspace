@@ -24,20 +24,77 @@ public class TestUser {
 			// ecco chi 'inietta' la connection: il chiamante
 			userDAOInstance = new UserDAOImpl(connection);
 
-			System.out.println("In tabella user ci sono " + userDAOInstance.list().size() + " elementi.");
-
-			testInsertUser(userDAOInstance);
-			System.out.println("In tabella user ci sono " + userDAOInstance.list().size() + " elementi.");
-
-			testFindById(userDAOInstance);
-
-			testDeleteUser(userDAOInstance);
-			System.out.println("In tabella user ci sono " + userDAOInstance.list().size() + " elementi.");
-
-			testFindAllWhereDateCreatedGreaterThan(userDAOInstance);
-			System.out.println("In tabella user ci sono " + userDAOInstance.list().size() + " elementi.");
+//			System.out.println("In tabella user ci sono " + userDAOInstance.list().size() + " elementi.");
+//
+//			testInsertUser(userDAOInstance);
+//			System.out.println("In tabella user ci sono " + userDAOInstance.list().size() + " elementi.");
+//
+//
+//			testFindById(userDAOInstance);
+//
+//			testDeleteUser(userDAOInstance);
+//			System.out.println("In tabella user ci sono " + userDAOInstance.list().size() + " elementi.");
+//
+//			testFindAllWhereDateCreatedGreaterThan(userDAOInstance);
+//			System.out.println("In tabella user ci sono " + userDAOInstance.list().size() + " elementi.");
 
 			// ESERCIZIO SUCCESSIVO: implementare metodi mancanti nel DAO
+
+			/// TEST FIND BY COGNOME
+			UserDAOImpl dao = new UserDAOImpl(connection);
+			String cognome = "Rossi";
+			List<User> risultati = dao.findAllByCognome(cognome);
+			if (risultati.isEmpty()) {
+				System.out.println("Nessun utente trovato con cognome 'Rossi'");
+			} else {
+				for (User u : risultati) {
+					System.out.println("ID: " + u.getId());
+					System.out.println("Nome: " + u.getNome());
+					System.out.println("Cognome: " + u.getCognome());
+					System.out.println("Login: " + u.getLogin());
+					System.out.println("Data creazione: " + u.getDateCreated());
+					System.out.println("-----------------------");
+				}
+			}
+			/// //////////////////////////////////////
+
+			/// TEST FINDALLBYLOGININIZIACON
+			List<User> utenti = dao.findAllByLoginIniziaCon("p");
+
+			// Stampa i risultati
+			if (utenti.isEmpty()) {
+				System.out.println("Nessun utente trovato con login che inizia per 'p'");
+			} else {
+				for (User u : utenti) {
+					System.out.println("ID: " + u.getId());
+					System.out.println("Nome: " + u.getNome());
+					System.out.println("Cognome: " + u.getCognome());
+					System.out.println("Login: " + u.getLogin());
+					System.out.println("Data creazione: " + u.getDateCreated());
+					System.out.println("---------------------------");
+				}
+			}
+			/// //////////////////////////////////////
+			/// TEST FINDBYLOGINANDPASSWORD
+			User utente = dao.findByLoginAndPassword("mrossi", "password123");
+			System.out.println(utente);
+			/// ///////////
+			/// /TEST FINDALLBYPASSWORDNULL
+			List<User> listUtentiPassNull = dao.findAllByPasswordIsNull();
+
+			// Stampa i risultati
+			if (listUtentiPassNull.isEmpty()) {
+				System.out.println("Nessun utente trovato con password null'");
+			} else {
+				for (User u : listUtentiPassNull) {
+					System.out.println("ID: " + u.getId());
+					System.out.println("Nome: " + u.getNome());
+					System.out.println("Cognome: " + u.getCognome());
+					System.out.println("Login: " + u.getLogin());
+					System.out.println("Data creazione: " + u.getDateCreated());
+					System.out.println("---------------------------");
+				}
+			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
