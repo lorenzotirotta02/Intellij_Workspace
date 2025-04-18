@@ -109,7 +109,7 @@ public class AutomobileServiceImpl implements AutomobileService{
     }
 
     @Override
-    public void caricaSingoloAutomobile(Long idAutomobileInstance) throws Exception {
+    public Automobile caricaSingoloAutomobile(Long idAutomobileInstance) throws Exception {
         // questo è come una connection
         EntityManager entityManager = EntityManagerUtil.getEntityManager();
 
@@ -119,7 +119,7 @@ public class AutomobileServiceImpl implements AutomobileService{
             automobileDAO.setEntityManager(entityManager);
 
             // eseguo quello che realmente devo fare
-            automobileDAO.get(idAutomobileInstance);
+            return automobileDAO.get(idAutomobileInstance);
 
         } catch (Exception e) {
             entityManager.getTransaction().rollback();

@@ -25,12 +25,30 @@ public class ProprietarioAutomobileTest {
 //            proprietarioService.inserisciNuovo(proprietario);
 
 //            /// TEST GET AUTOMOBILE
-              automobileService.caricaSingoloAutomobile(1L);
+              Automobile a = automobileService.caricaSingoloAutomobile(3L);
+              System.out.println(a.getMarca());
+              System.out.println(a.getModello());
 
 //            /// TEST GET PROPRIETARIO
-            proprietarioService.caricaSingoloProprietario(1L);
+              Proprietario p = proprietarioService.caricaSingoloProprietario(1L);
+              System.out.println(p.getNome());
+              System.out.println(p.getCognome());
 
 //            /// TEST AGGIORNAMENTO AUTOMOBILE
+              a.setMarca("Ford");
+              a.setModello("Focus");
+              automobileService.aggiorna(a);
+
+//            /// TEST AGGIORNAMENTO PROPRIETARIO
+              p.setNome("Mario");
+              p.setCognome("Bianchi");
+              proprietarioService.aggiorna(p);
+
+//            /// TEST RIMOZIONE AUTOMOBILE
+              automobileService.rimuovi(3L);
+
+//            /// TEST RIMOZIONE PROPRIETARIO
+              proprietarioService.rimuovi(1L);
 
 
 
