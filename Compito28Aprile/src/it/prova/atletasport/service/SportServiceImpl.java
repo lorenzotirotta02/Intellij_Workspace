@@ -163,7 +163,33 @@ public class SportServiceImpl implements SportService{
 
     @Override
     public void aggiungiSportAtleta(Sport sportInstance, Long idAtleta) throws Exception {
+        EntityManager entityManager = EntityManagerUtil.getEntityManager();
 
+        try {
+            entityManager.getTransaction().begin();
+
+            sportDAO.setEntityManager(entityManager);
+            atletaDAO.setEntityManager(entityManager);
+
+            Sport sportInstanceToAdd = sportDAO.get(sportInstance.getId());
+            Atleta atletaEsistente = atletaDAO.findByIdFetchingSport(idAtleta);
+
+            if (atletaEsistente.getSports().contains(sportInstanceToAdd)) {
+                throw new Exception("Sport già associato all'atleta");
+            }
+
+            atletaEsistente.getSports().add(sportInstanceToAdd);
+            atletaDAO.update(atletaEsistente);
+
+            entityManager.getTransaction().commit();
+
+        } catch (Exception e) {
+            entityManager.getTransaction().rollback();
+            e.printStackTrace();
+            throw e;
+        } finally {
+            EntityManagerUtil.closeEntityManager(entityManager);
+        }
     }
 
 

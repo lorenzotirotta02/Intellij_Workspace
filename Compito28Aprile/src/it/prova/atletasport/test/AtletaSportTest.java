@@ -24,37 +24,48 @@ public class AtletaSportTest {
 //            Sport s = new Sport("Calcio", LocalDate.of(2020, 1, 1), LocalDate.of(2022, 1, 1));
 //            sportServiceInstance.inserisciNuovo(s);
 
-            List<Atleta> lista = atletaServiceInstance.listAll();
-            for(Atleta atleta : lista) {
-                System.out.println("Atleta: " + atleta.getId());
-                System.out.println("Nome: " + atleta.getNome());
-                System.out.println("Cognome: " + atleta.getCognome());
-                System.out.println("Data di Nascita: " + atleta.getDataDiNascita());
-                System.out.println("Codice: " + atleta.getCodice());
-                System.out.println("Numero Medaglie Vinte: " + atleta.getNumeroMedaglieVinte());
-                System.out.println("Stato: " + atleta.getStato());
-            }
+//            List<Atleta> lista = atletaServiceInstance.listAll();
+//            for(Atleta atleta : lista) {
+//                System.out.println("Atleta: " + atleta.getId());
+//                System.out.println("Nome: " + atleta.getNome());
+//                System.out.println("Cognome: " + atleta.getCognome());
+//                System.out.println("Data di Nascita: " + atleta.getDataDiNascita());
+//                System.out.println("Codice: " + atleta.getCodice());
+//                System.out.println("Numero Medaglie Vinte: " + atleta.getNumeroMedaglieVinte());
+//                System.out.println("Stato: " + atleta.getStato());
+//            }
+//
+//            List<Sport> listaSport = sportServiceInstance.listAll();
+//            for(Sport sport : listaSport) {
+//                System.out.println("Sport: " + sport.getId());
+//                System.out.println("Descrizione: " + sport.getDescrizione());
+//                System.out.println("Data Inizio: " + sport.getDataInizio());
+//                System.out.println("Data Fine: " + sport.getDataFine());
+//            }
+//
+//            Atleta a = atletaServiceInstance.caricaSingoloElemento(1L);
+//            Sport s = sportServiceInstance.caricaSingoloElemento(1L);
+//
+//            a.setCodice("3");
+//            atletaServiceInstance.aggiorna(a);
+//
+//
+//            s.setDescrizione("Basket");
+//            sportServiceInstance.aggiorna(s);
+//
+//            sportServiceInstance.rimuovi(s.getId());
+//            atletaServiceInstance.rimuovi(a.getId());
 
-            List<Sport> listaSport = sportServiceInstance.listAll();
-            for(Sport sport : listaSport) {
-                System.out.println("Sport: " + sport.getId());
-                System.out.println("Descrizione: " + sport.getDescrizione());
-                System.out.println("Data Inizio: " + sport.getDataInizio());
-                System.out.println("Data Fine: " + sport.getDataFine());
-            }
+            /// FINE TEST CRUD
 
-            Atleta a = atletaServiceInstance.caricaSingoloElemento(1L);
-            Sport s = sportServiceInstance.caricaSingoloElemento(1L);
-
-            a.setCodice("3");
-            atletaServiceInstance.aggiorna(a);
+            /// TEST METODI sommaMedaglieDiAtletiConSportChiuso
+            Long sommaMedaglie = atletaServiceInstance.sommaMedaglieDiAtletiConSportChiuso();
+            System.out.println(sommaMedaglie);
+            // Utilizzo Long perchè nella query, utilizzando sum, il dato di ritorno è Long
+            // per gestire eventuali overflow
 
 
-            s.setDescrizione("Basket");
-            sportServiceInstance.aggiorna(s);
 
-            sportServiceInstance.rimuovi(s.getId());
-            atletaServiceInstance.rimuovi(a.getId());
 
 
 

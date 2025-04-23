@@ -50,9 +50,11 @@ public class AtletaDAOImpl implements AtletaDAO{
     }
 
     @Override
-    public int sumMedaglieBySportChiuso() throws Exception {
-        return 0;
+    public Long sumMedaglieBySportChiuso() throws Exception {
+        return entityManager.createQuery("select sum(a.numeroMedaglieVinte) from Atleta a join a.sports s where s.dataFine < CURRENT_DATE", Long.class)
+                .getSingleResult();
     }
+
 
     @Override
     public List<Atleta> findAllBySportChiuso() throws Exception {
@@ -68,6 +70,32 @@ public class AtletaDAOImpl implements AtletaDAO{
     public List<Atleta> findAllBySport(Sport sport) throws Exception {
         return List.of();
     }
+
+//    @Override
+//    public List<Atleta> findAllBySportChiuso() throws Exception {
+//        return entityManager.createQuery("select a from Atleta a join a.sports s where s.dataFine < CURRENT_DATE", Atleta.class)
+//                .getResultList();
+//    }
+//
+//    @Override
+//    public Atleta findByIdFetchingSport(Long id) throws Exception {
+//        if(id == null){
+//            throw new Exception("Id non valido");
+//        }
+//        return entityManager.createQuery("select a from Atleta a left join fetch a.sports s where a.id = :id", Atleta.class)
+//                .setParameter("id", id)
+//                .getSingleResult();
+//    }
+//
+//    @Override
+//    public List<Atleta> findAllBySport(Sport sport) throws Exception {
+//        if(sport == null){
+//            throw new Exception("Sport non valido");
+//        }
+//        return entityManager.createQuery("select a from Atleta a join a.sports s where s = :sport", Atleta.class)
+//                .setParameter("sport", sport)
+//                .getResultList();
+//    }
 
 
 }

@@ -4,6 +4,7 @@ import it.prova.atletasport.dao.EntityManagerUtil;
 import it.prova.atletasport.dao.SportDAO;
 import it.prova.atletasport.dao.AtletaDAO;
 import it.prova.atletasport.model.Atleta;
+import it.prova.atletasport.model.Sport;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -148,7 +149,7 @@ public class AtletaServiceImpl implements AtletaService{
     }
 
     @Override
-    public int sommaMedaglieDiAtletiConSportChiuso() throws Exception {
+    public Long sommaMedaglieDiAtletiConSportChiuso() throws Exception {
         EntityManager entityManager = EntityManagerUtil.getEntityManager();
 
         try {
@@ -162,5 +163,15 @@ public class AtletaServiceImpl implements AtletaService{
         } finally {
             EntityManagerUtil.closeEntityManager(entityManager);
         }
+    }
+
+    @Override
+    public Atleta trovaPerIdConSport(Long id) throws Exception {
+        return null;
+    }
+
+    @Override
+    public List<Atleta> trovaTuttiAtletiBySport(Sport sport) throws Exception {
+        return List.of();
     }
 }

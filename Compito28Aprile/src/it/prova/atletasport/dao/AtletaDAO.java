@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface AtletaDAO extends IBaseDAO<Atleta>{
 
-    public int sumMedaglieBySportChiuso() throws Exception;
+    public Long sumMedaglieBySportChiuso() throws Exception;
 
     public List<Atleta> findAllBySportChiuso() throws Exception;
 
