@@ -53,6 +53,9 @@ public class AtletaSportTest {
             s.setDescrizione("Basket");
             sportServiceInstance.aggiorna(s);
 
+            sportServiceInstance.rimuovi(s.getId());
+            atletaServiceInstance.rimuovi(a.getId());
+
 
 
         } catch (Exception e) {
