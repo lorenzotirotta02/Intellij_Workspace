@@ -166,9 +166,34 @@ public class AtletaServiceImpl implements AtletaService{
     }
 
     @Override
-    public Atleta trovaPerIdConSport(Long id) throws Exception {
-        return null;
+    public Atleta caricaAtletaSingoloConSport(Long id) throws Exception {
+        EntityManager entityManager = EntityManagerUtil.getEntityManager();
+
+        try {
+            atletaDAO.setEntityManager(entityManager);
+            Atleta atleta = atletaDAO.get(id); //conservo l'atleta.get(id) in una variabile
+            // per evitare di fare due volte la stessa query
+
+            if (atleta == null) {
+                System.out.println("Atleta non trovato.");
+                return null;
+            }
+
+            if (atleta.getSports() == null || atleta.getSports().isEmpty()) {
+                System.out.println("L'atleta non ha sport associati.");
+                return null;
+            }
+
+            return atleta;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        } finally {
+            EntityManagerUtil.closeEntityManager(entityManager);
+        }
     }
+
 
     @Override
     public List<Atleta> trovaTuttiAtletiBySport(Sport sport) throws Exception {

@@ -59,10 +59,32 @@ public class AtletaSportTest {
             /// FINE TEST CRUD
 
             /// TEST METODI sommaMedaglieDiAtletiConSportChiuso
-            Long sommaMedaglie = atletaServiceInstance.sommaMedaglieDiAtletiConSportChiuso();
-            System.out.println(sommaMedaglie);
+//            Long sommaMedaglie = atletaServiceInstance.sommaMedaglieDiAtletiConSportChiuso();
+//            System.out.println(sommaMedaglie);
+
             // Utilizzo Long perchè nella query, utilizzando sum, il dato di ritorno è Long
             // per gestire eventuali overflow
+
+
+
+//            ///  TEST trovaTuttiAtletiConSportChiuso
+//            List<Atleta> results = atletaServiceInstance.trovaTuttiAtletiConSportChiuso();
+//            for(Atleta a : results){
+//                System.out.println("Atleta: " + a.getId());
+//                System.out.println("Nome: " + a.getNome());
+//                System.out.println("Cognome: " + a.getCognome());
+//                System.out.println("Data di Nascita: " + a.getDataDiNascita());
+//                System.out.println("Codice: " + a.getCodice());
+//                System.out.println("Numero Medaglie Vinte: " + a.getNumeroMedaglieVinte());
+//                System.out.println("Stato: " + a.getStato());
+//            }
+
+            Atleta atletaSingoloConSport = atletaServiceInstance.caricaAtletaSingoloConSport(2L);
+            System.out.println(atletaSingoloConSport.getNome());
+            System.out.println(atletaSingoloConSport.getCognome());
+            System.out.println(atletaSingoloConSport.getSports().size());
+            System.out.println(atletaSingoloConSport.getDataDiNascita());
+            System.out.println(atletaSingoloConSport.getStato());
 
 
 

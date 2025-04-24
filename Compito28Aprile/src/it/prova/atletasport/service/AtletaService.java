@@ -23,7 +23,7 @@ public interface AtletaService {
 
     public Long sommaMedaglieDiAtletiConSportChiuso() throws Exception; // somma le medaglie di tutti gli atleti con sport chiuso
 
-    public Atleta trovaPerIdConSport(Long id) throws Exception; // trova un atleta e lo carica con gli sport
+    public Atleta caricaAtletaSingoloConSport(Long id) throws Exception; // trova un atleta e lo carica con gli sport
 
     public List<Atleta> trovaTuttiAtletiBySport (Sport sport) throws Exception; // trova tutti gli atleti di uno sport
 

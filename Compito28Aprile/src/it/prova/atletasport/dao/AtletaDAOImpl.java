@@ -55,37 +55,26 @@ public class AtletaDAOImpl implements AtletaDAO{
                 .getSingleResult();
     }
 
-
-    @Override
-    public List<Atleta> findAllBySportChiuso() throws Exception {
-        return List.of();
-    }
-
-    @Override
-    public Atleta findByIdFetchingSport(Long id) throws Exception {
-        return null;
-    }
-
     @Override
     public List<Atleta> findAllBySport(Sport sport) throws Exception {
         return List.of();
     }
 
-//    @Override
-//    public List<Atleta> findAllBySportChiuso() throws Exception {
-//        return entityManager.createQuery("select a from Atleta a join a.sports s where s.dataFine < CURRENT_DATE", Atleta.class)
-//                .getResultList();
-//    }
-//
-//    @Override
-//    public Atleta findByIdFetchingSport(Long id) throws Exception {
-//        if(id == null){
-//            throw new Exception("Id non valido");
-//        }
-//        return entityManager.createQuery("select a from Atleta a left join fetch a.sports s where a.id = :id", Atleta.class)
-//                .setParameter("id", id)
-//                .getSingleResult();
-//    }
+    @Override
+    public List<Atleta> findAllBySportChiuso() throws Exception {
+        return entityManager.createQuery("select a from Atleta a join a.sports s where s.dataFine < CURRENT_DATE", Atleta.class)
+                .getResultList();
+    }
+
+    @Override
+    public Atleta findByIdFetchingSport(Long id) throws Exception {
+        if(id == null){
+            throw new Exception("Id non valido");
+        }
+        return entityManager.createQuery("select a from Atleta a left join fetch a.sports s where a.id = :id", Atleta.class)
+                .setParameter("id", id)
+                .getSingleResult();
+    }
 //
 //    @Override
 //    public List<Atleta> findAllBySport(Sport sport) throws Exception {
