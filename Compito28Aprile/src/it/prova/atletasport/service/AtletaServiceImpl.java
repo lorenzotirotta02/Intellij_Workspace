@@ -1,5 +1,6 @@
 package it.prova.atletasport.service;
 
+import it.prova.atletasport.ValidateSportAndAtleta;
 import it.prova.atletasport.dao.EntityManagerUtil;
 import it.prova.atletasport.dao.SportDAO;
 import it.prova.atletasport.dao.AtletaDAO;
@@ -49,11 +50,18 @@ public class AtletaServiceImpl implements AtletaService{
         EntityManager entityManager = EntityManagerUtil.getEntityManager();
 
         try {
-            // uso l'injection per il dao
+            // Validazione dell'ID
+            ValidateSportAndAtleta.validateAtleta(id);
+
             atletaDAO.setEntityManager(entityManager);
 
-            // eseguo quello che realmente devo fare
-            return atletaDAO.get(id);
+            // Recupero atleta
+            Atleta atleta = atletaDAO.get(id);
+
+            // Controllo esistenza
+            ValidateSportAndAtleta.validateAtleta(atleta.getId());
+
+            return atleta;
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -68,10 +76,16 @@ public class AtletaServiceImpl implements AtletaService{
         EntityManager entityManager = EntityManagerUtil.getEntityManager();
 
         try {
-            entityManager.getTransaction().begin();
+            // Validazione dell'ID
+            Long atleta = atletaInstance.getId();
+            ValidateSportAndAtleta.validateAtleta(atleta);
 
-            // uso l'injection per il dao
+
+            entityManager.getTransaction().begin();
             atletaDAO.setEntityManager(entityManager);
+
+            // Controllo se l'atleta esiste
+            ValidateSportAndAtleta.validateAtleta(atleta);
 
             // eseguo quello che realmente devo fare
             atletaDAO.update(atletaInstance);
@@ -113,11 +127,17 @@ public class AtletaServiceImpl implements AtletaService{
         EntityManager entityManager = EntityManagerUtil.getEntityManager();
 
         try{
+            // Validazione dell'ID
+            ValidateSportAndAtleta.validateAtleta(idAtleta);
+
             entityManager.getTransaction().begin();
-
             atletaDAO.setEntityManager(entityManager);
-
             Atleta atletaInstance = atletaDAO.get(idAtleta);
+
+            // Controllo se l'atleta esiste
+            ValidateSportAndAtleta.validateAtleta(atletaInstance.getId());
+
+            // eseguo quello che realmente devo fare
             atletaDAO.delete(atletaInstance);
 
             entityManager.getTransaction().commit();
@@ -136,8 +156,12 @@ public class AtletaServiceImpl implements AtletaService{
         EntityManager entityManager = EntityManagerUtil.getEntityManager();
 
         try {
-            atletaDAO.setEntityManager(entityManager);
 
+            atletaDAO.setEntityManager(entityManager);
+            if(atletaDAO.findAllBySportChiuso() == null || atletaDAO.findAllBySportChiuso().isEmpty()) {
+                System.out.println("Non ci sono atleti con sport chiuso.");
+                return null;
+            }
             return atletaDAO.findAllBySportChiuso();
 
         } catch (Exception e) {
@@ -154,6 +178,10 @@ public class AtletaServiceImpl implements AtletaService{
 
         try {
             atletaDAO.setEntityManager(entityManager);
+            if (atletaDAO.sumMedaglieBySportChiuso() == null || atletaDAO.sumMedaglieBySportChiuso() == 0) {
+                System.out.println("Non ci sono atleti con sport chiuso.");
+                return null;
+            }
 
             return atletaDAO.sumMedaglieBySportChiuso();
 
@@ -170,14 +198,15 @@ public class AtletaServiceImpl implements AtletaService{
         EntityManager entityManager = EntityManagerUtil.getEntityManager();
 
         try {
+            // Validazione dell'ID
+            ValidateSportAndAtleta.validateAtleta(id);
+
             atletaDAO.setEntityManager(entityManager);
             Atleta atleta = atletaDAO.get(id); //conservo l'atleta.get(id) in una variabile
             // per evitare di fare due volte la stessa query
 
-            if (atleta == null) {
-                System.out.println("Atleta non trovato.");
-                return null;
-            }
+            // Controllo se l'atleta esiste
+            ValidateSportAndAtleta.validateAtleta(id);
 
             if (atleta.getSports() == null || atleta.getSports().isEmpty()) {
                 System.out.println("L'atleta non ha sport associati.");
@@ -200,12 +229,14 @@ public class AtletaServiceImpl implements AtletaService{
         EntityManager entityManager = EntityManagerUtil.getEntityManager();
 
         try{
+            // Validazione dell'ID
+            ValidateSportAndAtleta.validateSport(sport.getId());
+
             atletaDAO.setEntityManager(entityManager);
             sportDAO.setEntityManager(entityManager);
 
-            if (sport == null) {
-                throw new Exception("Sport non valido");
-            }
+            // Controllo se lo sport esiste
+            ValidateSportAndAtleta.validateSport(sport.getId());
 
             return atletaDAO.findAllBySportChiuso();
 
