@@ -24,6 +24,8 @@ public interface SportService {
 
     public void aggiungiSportAtleta(Sport sportInstance, Long idAtleta) throws Exception;
 
+    public List<Sport> trovaSportConDateErrate() throws Exception;
+
     public void setSportDAO(SportDAO sportDao);
 
     public void setAtletaDAO(AtletaDAO atletaDao);

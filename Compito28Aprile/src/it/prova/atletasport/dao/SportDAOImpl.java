@@ -97,4 +97,9 @@ public class SportDAOImpl implements SportDAO{
             EntityManagerUtil.closeEntityManager(entityManager);
         }
     }
+    @Override
+    public List<Sport> findSportsWithWrongDateOrder() throws Exception {
+        return entityManager.createQuery("select s from Sport s where s.dataInizio > s.dataFine", Sport.class)
+                .getResultList();
+    }
 }

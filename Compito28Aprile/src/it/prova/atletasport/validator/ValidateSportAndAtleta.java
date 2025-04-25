@@ -1,4 +1,4 @@
-package it.prova.atletasport;
+package it.prova.atletasport.validator;
 
 import it.prova.atletasport.exceptions.AtletaNotFoundException;
 import it.prova.atletasport.exceptions.SportNotFoundException;

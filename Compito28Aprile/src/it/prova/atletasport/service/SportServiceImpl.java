@@ -1,21 +1,16 @@
 package it.prova.atletasport.service;
 
-import it.prova.atletasport.ValidateSportAndAtleta;
+import it.prova.atletasport.validator.ValidateSportAndAtleta;
 import it.prova.atletasport.dao.AtletaDAO;
 import it.prova.atletasport.dao.EntityManagerUtil;
 import it.prova.atletasport.dao.SportDAO;
-import it.prova.atletasport.exceptions.AtletaNotFoundException;
-import it.prova.atletasport.exceptions.SportNotFoundException;
 import it.prova.atletasport.model.Atleta;
 import it.prova.atletasport.model.Sport;
-import it.prova.atletasport.test.AtletaSportTest;
 
-import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import java.util.List;
 
-import static it.prova.atletasport.ValidateSportAndAtleta.validateAtleta;
-import static it.prova.atletasport.ValidateSportAndAtleta.validateSportAndAtleta;
+import static it.prova.atletasport.validator.ValidateSportAndAtleta.validateSportAndAtleta;
 
 public class SportServiceImpl implements SportService{
 
@@ -244,6 +239,21 @@ public class SportServiceImpl implements SportService{
 
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
+            e.printStackTrace();
+            throw e;
+        } finally {
+            EntityManagerUtil.closeEntityManager(entityManager);
+        }
+    }
+    @Override
+    public List<Sport> trovaSportConDateErrate() throws Exception {
+        EntityManager entityManager = EntityManagerUtil.getEntityManager();
+
+        try {
+            sportDAO.setEntityManager(entityManager);
+            return sportDAO.findSportsWithWrongDateOrder();
+
+        } catch (Exception e) {
             e.printStackTrace();
             throw e;
         } finally {

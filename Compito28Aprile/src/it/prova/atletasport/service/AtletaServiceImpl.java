@@ -1,6 +1,6 @@
 package it.prova.atletasport.service;
 
-import it.prova.atletasport.ValidateSportAndAtleta;
+import it.prova.atletasport.validator.ValidateSportAndAtleta;
 import it.prova.atletasport.dao.EntityManagerUtil;
 import it.prova.atletasport.dao.SportDAO;
 import it.prova.atletasport.dao.AtletaDAO;
