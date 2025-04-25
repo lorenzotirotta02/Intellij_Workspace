@@ -53,7 +53,9 @@ public class AtletaSportTest {
 //            s.setDescrizione("Basket");
 //            sportServiceInstance.aggiorna(s);
 //
-//            sportServiceInstance.rimuovi(s.getId());
+            Sport s = new Sport("Calcio", LocalDate.of(2020, 1, 1), LocalDate.of(2022, 1, 1));
+            sportServiceInstance.inserisciNuovo(s);
+            sportServiceInstance.rimuovi(s.getId());
 //            atletaServiceInstance.rimuovi(a.getId());
 
             /// FINE TEST CRUD
@@ -110,9 +112,12 @@ public class AtletaSportTest {
 //            Atleta atleta = atletaServiceInstance.caricaSingoloElemento(4L);
 //            sportServiceInstance.rimuoviSportDaAtleta(sport.getId(), atleta.getId());
 
-            Sport sport = sportServiceInstance.caricaSingoloElemento(5L);
-            Atleta atleta = atletaServiceInstance.caricaSingoloElemento(4L);
-            sportServiceInstance.rimuoviAtletaDopoScollegamentoSport(sport.getId(), atleta.getId());
+//            Sport sport = sportServiceInstance.caricaSingoloElemento(5L);
+//            Atleta atleta = atletaServiceInstance.caricaSingoloElemento(4L);
+//            sportServiceInstance.rimuoviAtletaDopoScollegamentoSport(sport.getId(), atleta.getId());
+
+            ///  TEST SportNotFoundException
+//            Sport s = sportServiceInstance.caricaSingoloElemento(0L);
 
 
         } catch (Exception e) {

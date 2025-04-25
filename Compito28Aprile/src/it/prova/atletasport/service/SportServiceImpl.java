@@ -1,14 +1,21 @@
 package it.prova.atletasport.service;
 
+import it.prova.atletasport.ValidateSportAndAtleta;
 import it.prova.atletasport.dao.AtletaDAO;
 import it.prova.atletasport.dao.EntityManagerUtil;
 import it.prova.atletasport.dao.SportDAO;
+import it.prova.atletasport.exceptions.AtletaNotFoundException;
+import it.prova.atletasport.exceptions.SportNotFoundException;
 import it.prova.atletasport.model.Atleta;
 import it.prova.atletasport.model.Sport;
+import it.prova.atletasport.test.AtletaSportTest;
 
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import java.util.List;
+
+import static it.prova.atletasport.ValidateSportAndAtleta.validateAtleta;
+import static it.prova.atletasport.ValidateSportAndAtleta.validateSportAndAtleta;
 
 public class SportServiceImpl implements SportService{
 
@@ -44,10 +51,15 @@ public class SportServiceImpl implements SportService{
     @Override
     public Sport caricaSingoloElemento(Long id) throws Exception {
         EntityManager entityManager = EntityManagerUtil.getEntityManager();
-
         try {
+            // Validazione dell'ID
+            ValidateSportAndAtleta.validateSport(id);
+
             sportDAO.setEntityManager(entityManager);
+            ValidateSportAndAtleta.validateSport(id);
+
             return sportDAO.get(id);
+
         } catch (Exception e) {
             e.printStackTrace();
             throw e;
@@ -61,6 +73,11 @@ public class SportServiceImpl implements SportService{
         EntityManager entityManager = EntityManagerUtil.getEntityManager();
 
         try {
+
+            // Validazione dell'ID
+            Long sport = sportInstance.getId();
+            ValidateSportAndAtleta.validateSport(sport);
+
             entityManager.getTransaction().begin();
 
             sportDAO.setEntityManager(entityManager);
@@ -105,16 +122,15 @@ public class SportServiceImpl implements SportService{
         EntityManager entityManager = EntityManagerUtil.getEntityManager();
 
         try {
-            entityManager.getTransaction().begin();
+            // Validazione dell'ID
+            ValidateSportAndAtleta.validateSport(idSport);
 
+            entityManager.getTransaction().begin();
             sportDAO.setEntityManager(entityManager);
 
             Sport sportInstance = sportDAO.get(idSport);
-            List<Atleta> atletiAssociati = atletaDAO.findAllBySport(sportInstance);
-
-            for (Atleta i : atletiAssociati) {
-                atletaDAO.delete(i);
-            }
+            // Verifica che lo sport esista
+            ValidateSportAndAtleta.validateSport(idSport);
 
             sportDAO.delete(sportInstance);
             entityManager.getTransaction().commit();
@@ -133,6 +149,8 @@ public class SportServiceImpl implements SportService{
         EntityManager entityManager = EntityManagerUtil.getEntityManager();
 
         try {
+            // Validazione degli ID
+            ValidateSportAndAtleta.validateSportAndAtleta(idSport, idAtleta);
             entityManager.getTransaction().begin();
 
             sportDAO.setEntityManager(entityManager);
@@ -140,6 +158,9 @@ public class SportServiceImpl implements SportService{
 
             Sport sportInstance = sportDAO.get(idSport);
             Atleta atletaEsistente = atletaDAO.findByIdFetchingSport(idAtleta);
+
+            // Verifica che lo sport e l'atleta esistano
+            ValidateSportAndAtleta.validateSportAndAtleta(sportInstance, atletaEsistente);
 
             atletaEsistente.getSports().remove(sportInstance);
             atletaDAO.update(atletaEsistente);
@@ -160,6 +181,8 @@ public class SportServiceImpl implements SportService{
     public void rimuoviAtletaDopoScollegamentoSport(Long idSport, Long idAtleta) throws Exception {
         EntityManager entityManager = EntityManagerUtil.getEntityManager();
         try {
+            // Validazione degli ID
+            ValidateSportAndAtleta.validateSportAndAtleta(idSport, idAtleta);
             entityManager.getTransaction().begin();
 
             sportDAO.setEntityManager(entityManager);
@@ -167,6 +190,9 @@ public class SportServiceImpl implements SportService{
 
             Sport sportInstance = sportDAO.get(idSport);
             Atleta atletaEsistente = atletaDAO.findByIdFetchingSport(idAtleta);
+
+            // Verifica che lo sport e l'atleta esistano
+            ValidateSportAndAtleta.validateSportAndAtleta(sportInstance, atletaEsistente);
 
             if (atletaEsistente.getSports().contains(sportInstance)) {
                 atletaEsistente.getSports().remove(sportInstance);
@@ -191,6 +217,11 @@ public class SportServiceImpl implements SportService{
         EntityManager entityManager = EntityManagerUtil.getEntityManager();
 
         try {
+            Long idSport = sportInstance.getId();
+
+            // Validazione degli ID
+            ValidateSportAndAtleta.validateSportAndAtleta(idSport, idAtleta);
+
             entityManager.getTransaction().begin();
 
             sportDAO.setEntityManager(entityManager);
@@ -198,6 +229,9 @@ public class SportServiceImpl implements SportService{
 
             Sport sportInstanceToAdd = sportDAO.get(sportInstance.getId());
             Atleta atletaEsistente = atletaDAO.findByIdFetchingSport(idAtleta);
+
+            // Verifica che lo sport e l'atleta esistano
+            ValidateSportAndAtleta.validateSportAndAtleta(sportInstance, atletaEsistente);
 
             if (atletaEsistente.getSports().contains(sportInstanceToAdd)) {
                 throw new Exception("Sport già associato all'atleta");
