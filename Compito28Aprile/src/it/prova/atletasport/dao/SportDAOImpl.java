@@ -1,7 +1,6 @@
 package it.prova.atletasport.dao;
 
 import it.prova.atletasport.model.Sport;
-import it.prova.atletasport.model.SportUtente;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -50,17 +49,52 @@ public class SportDAOImpl implements SportDAO{
     }
 
     @Override
-    public void addSportUtente(Long idUtente, Long idSport) throws Exception {
-
+    public void addSportAtleta(Long idUtente, Long idSport) throws Exception {
+        if(idUtente == null || idSport == null) {
+            throw new Exception("Id utente o sport non valido");
+        }
+        entityManager.createNativeQuery("insert into atleta_sport (id_utente, id_sport) values (?, ?)")
+                .setParameter(1, idUtente)
+                .setParameter(2, idSport)
+                .executeUpdate();
     }
 
     @Override
-    public void removeSportUtente(Long idUtente, Long idSport) throws Exception {
-
+    public void removeSportAtleta(Long idUtente, Long idSport) throws Exception {
+        EntityManager entityManager = EntityManagerUtil.getEntityManager();
+        try {
+            entityManager.getTransaction().begin();
+            entityManager.createNativeQuery("delete from atleta_sport where id_utente = ? and id_sport = ?")
+                    .setParameter(1, idUtente)
+                    .setParameter(2, idSport)
+                    .executeUpdate();
+            entityManager.getTransaction().commit();
+        } catch (Exception e) {
+            entityManager.getTransaction().rollback();
+            throw e;
+        } finally {
+            EntityManagerUtil.closeEntityManager(entityManager);
+        }
     }
 
     @Override
-    public void removeUtenteFromSport(Long idUtente, Long idSport) throws Exception {
-
+    public void removeAtletaAfterRemovingFromSport(Long idUtente, Long idSport) throws Exception {
+        EntityManager entityManager = EntityManagerUtil.getEntityManager();
+        try {
+            entityManager.getTransaction().begin();
+            entityManager.createNativeQuery("delete from atleta_sport where id_utente = ? and id_sport = ?")
+                    .setParameter(1, idUtente)
+                    .setParameter(2, idSport)
+                    .executeUpdate();
+            entityManager.createNativeQuery("delete from atleta where a.id = ?")
+                    .setParameter(1, idUtente)
+                    .executeUpdate();
+            entityManager.getTransaction().commit();
+        } catch (Exception e) {
+            entityManager.getTransaction().rollback();
+            throw e;
+        } finally {
+            EntityManagerUtil.closeEntityManager(entityManager);
+        }
     }
 }

@@ -56,11 +56,6 @@ public class AtletaDAOImpl implements AtletaDAO{
     }
 
     @Override
-    public List<Atleta> findAllBySport(Sport sport) throws Exception {
-        return List.of();
-    }
-
-    @Override
     public List<Atleta> findAllBySportChiuso() throws Exception {
         return entityManager.createQuery("select a from Atleta a join a.sports s where s.dataFine < CURRENT_DATE", Atleta.class)
                 .getResultList();
@@ -75,16 +70,16 @@ public class AtletaDAOImpl implements AtletaDAO{
                 .setParameter("id", id)
                 .getSingleResult();
     }
-//
-//    @Override
-//    public List<Atleta> findAllBySport(Sport sport) throws Exception {
-//        if(sport == null){
-//            throw new Exception("Sport non valido");
-//        }
-//        return entityManager.createQuery("select a from Atleta a join a.sports s where s = :sport", Atleta.class)
-//                .setParameter("sport", sport)
-//                .getResultList();
-//    }
+
+    @Override
+    public List<Atleta> findAllBySport(Sport sport) throws Exception {
+        if(sport == null){
+            throw new Exception("Sport non valido");
+        }
+        return entityManager.createQuery("select a from Atleta a join a.sports s where s = :sport", Atleta.class)
+                .setParameter("sport", sport)
+                .getResultList();
+    }
 
 
 }

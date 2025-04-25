@@ -197,6 +197,23 @@ public class AtletaServiceImpl implements AtletaService{
 
     @Override
     public List<Atleta> trovaTuttiAtletiBySport(Sport sport) throws Exception {
-        return List.of();
+        EntityManager entityManager = EntityManagerUtil.getEntityManager();
+
+        try{
+            atletaDAO.setEntityManager(entityManager);
+            sportDAO.setEntityManager(entityManager);
+
+            if (sport == null) {
+                throw new Exception("Sport non valido");
+            }
+
+            return atletaDAO.findAllBySportChiuso();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        } finally {
+            EntityManagerUtil.closeEntityManager(entityManager);
+        }
     }
 }

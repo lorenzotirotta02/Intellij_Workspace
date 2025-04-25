@@ -79,16 +79,40 @@ public class AtletaSportTest {
 //                System.out.println("Stato: " + a.getStato());
 //            }
 
-            Atleta atletaSingoloConSport = atletaServiceInstance.caricaAtletaSingoloConSport(2L);
-            System.out.println(atletaSingoloConSport.getNome());
-            System.out.println(atletaSingoloConSport.getCognome());
-            System.out.println(atletaSingoloConSport.getSports().size());
-            System.out.println(atletaSingoloConSport.getDataDiNascita());
-            System.out.println(atletaSingoloConSport.getStato());
+            /// TEST caricaAtletaSingoloConSport
+//            Atleta atletaSingoloConSport = atletaServiceInstance.caricaAtletaSingoloConSport(2L);
+//            System.out.println(atletaSingoloConSport.getNome());
+//            System.out.println(atletaSingoloConSport.getCognome());
+//            System.out.println(atletaSingoloConSport.getSports().size());
+//            System.out.println(atletaSingoloConSport.getDataDiNascita());
+//            System.out.println(atletaSingoloConSport.getStato());
 
+            /// TEST trovaTuttiAtletiBySport
+//            List<Atleta> atleti = atletaServiceInstance.trovaTuttiAtletiBySport(sportServiceInstance.caricaSingoloElemento(2L));
+//            for(Atleta a : atleti){
+//                System.out.println("Atleta: " + a.getId());
+//                System.out.println("Nome: " + a.getNome());
+//                System.out.println("Cognome: " + a.getCognome());
+//                System.out.println("Data di Nascita: " + a.getDataDiNascita());
+//                System.out.println("Codice: " + a.getCodice());
+//                System.out.println("Numero Medaglie Vinte: " + a.getNumeroMedaglieVinte());
+//                System.out.println("Stato: " + a.getStato());
+//            }
 
+            /// TEST aggiungiSportAtleta
+//            Sport sport = sportServiceInstance.caricaSingoloElemento(5L);
+//            Atleta atleta = atletaServiceInstance.caricaSingoloElemento(4L);
+//
+//            sportServiceInstance.aggiungiSportAtleta(sport, atleta.getId());
 
+//            /// TEST rimuoviSportDaAtleta
+//            Sport sport = sportServiceInstance.caricaSingoloElemento(5L);
+//            Atleta atleta = atletaServiceInstance.caricaSingoloElemento(4L);
+//            sportServiceInstance.rimuoviSportDaAtleta(sport.getId(), atleta.getId());
 
+            Sport sport = sportServiceInstance.caricaSingoloElemento(5L);
+            Atleta atleta = atletaServiceInstance.caricaSingoloElemento(4L);
+            sportServiceInstance.rimuoviAtletaDopoScollegamentoSport(sport.getId(), atleta.getId());
 
 
         } catch (Exception e) {

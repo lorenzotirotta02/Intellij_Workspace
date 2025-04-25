@@ -157,8 +157,33 @@ public class SportServiceImpl implements SportService{
 
 
     @Override
-    public void rimuoviAtletaDaSport(Long idSport, Long idAtleta) throws Exception {
+    public void rimuoviAtletaDopoScollegamentoSport(Long idSport, Long idAtleta) throws Exception {
+        EntityManager entityManager = EntityManagerUtil.getEntityManager();
+        try {
+            entityManager.getTransaction().begin();
 
+            sportDAO.setEntityManager(entityManager);
+            atletaDAO.setEntityManager(entityManager);
+
+            Sport sportInstance = sportDAO.get(idSport);
+            Atleta atletaEsistente = atletaDAO.findByIdFetchingSport(idAtleta);
+
+            if (atletaEsistente.getSports().contains(sportInstance)) {
+                atletaEsistente.getSports().remove(sportInstance);
+                atletaDAO.update(atletaEsistente);
+            }
+
+            atletaDAO.delete(atletaEsistente);
+
+            entityManager.getTransaction().commit();
+
+        } catch (Exception e) {
+            entityManager.getTransaction().rollback();
+            e.printStackTrace();
+            throw e;
+        } finally {
+            EntityManagerUtil.closeEntityManager(entityManager);
+        }
     }
 
     @Override

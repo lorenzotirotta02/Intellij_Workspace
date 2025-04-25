@@ -21,7 +21,7 @@ public class Atleta {
     public int numeroMedaglieVinte;
 
     @Enumerated(EnumType.STRING)
-    private SportUtente stato = SportUtente.CALCIO;
+    private SportAtleta stato = SportAtleta.CALCIO;
 
 
     @ManyToMany
@@ -64,11 +64,11 @@ public class Atleta {
         this.sports = sports;
     }
 
-    public SportUtente getStato() {
+    public SportAtleta getStato() {
         return stato;
     }
 
-    public void setStato(SportUtente stato) {
+    public void setStato(SportAtleta stato) {
         this.stato = stato;
     }
 

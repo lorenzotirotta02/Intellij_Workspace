@@ -20,7 +20,7 @@ public interface SportService {
 
     public void rimuoviSportDaAtleta(Long idSport, Long idAtleta) throws Exception;
 
-    public void rimuoviAtletaDaSport(Long idSport, Long idAtleta) throws Exception;
+    public void rimuoviAtletaDopoScollegamentoSport(Long idSport, Long idAtleta) throws Exception;
 
     public void aggiungiSportAtleta(Sport sportInstance, Long idAtleta) throws Exception;
 
