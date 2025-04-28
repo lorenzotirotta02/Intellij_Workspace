@@ -1,5 +1,6 @@
 package it.prova.manytomanybranogeneremaven.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -146,6 +147,21 @@ public class GenereServiceImpl implements GenereService {
 			EntityManagerUtil.closeEntityManager(entityManager);
 		}
 
+	}
+
+	@Override
+	public List<Genere> cercaGeneriDiBraniTraDueDate(LocalDate dataInizio, LocalDate dataFine) throws Exception {
+		EntityManager entityManager = EntityManagerUtil.getEntityManager();
+
+		try {
+			genereDAO.setEntityManager(entityManager);
+			return genereDAO.findGeneriBetweenTwoDates(dataInizio, dataFine);
+		}catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			EntityManagerUtil.closeEntityManager(entityManager);
+		}
 	}
 
 	@Override

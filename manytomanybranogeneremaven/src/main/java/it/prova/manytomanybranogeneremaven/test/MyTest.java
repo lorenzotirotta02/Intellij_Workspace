@@ -16,29 +16,49 @@ import it.prova.manytomanybranogeneremaven.service.MyServiceFactory;
 public class MyTest {
 
 	public static void main(String[] args) {
+		java.util.logging.Logger.getLogger("org.hibernate").setLevel(java.util.logging.Level.OFF);
 		BranoService branoServiceInstance = MyServiceFactory.getBranoServiceInstance();
 		GenereService genereServiceInstance = MyServiceFactory.getGenereServiceInstance();
 
 		try {
 
-			System.out.println("In tabella Genere ci sono " + genereServiceInstance.listAll().size() + " elementi.");
-			System.out.println("In tabella Brano ci sono " + branoServiceInstance.listAll().size() + " elementi.");
-			System.out.println(
-					"**************************** inizio batteria di test ********************************************");
-			System.out.println(
-					"*************************************************************************************************");
+//			System.out.println("In tabella Genere ci sono " + genereServiceInstance.listAll().size() + " elementi.");
+//			System.out.println("In tabella Brano ci sono " + branoServiceInstance.listAll().size() + " elementi.");
+//			System.out.println(
+//					"**************************** inizio batteria di test ********************************************");
+//			System.out.println(
+//					"*************************************************************************************************");
+//
+//			testInserimentoNuovoBrano(branoServiceInstance);
+//
+//			testModificaECheckDateBrano(branoServiceInstance);
+//
+//			testInserimentoNuovoGenereERicercaPerDescrizione(genereServiceInstance);
+//
+//			testCollegaGenereABrano(branoServiceInstance, genereServiceInstance);
+//
+//			testCreazioneECollegamentoBranoInUnSoloColpo(branoServiceInstance, genereServiceInstance);
+//
+//			testEstraiListaDescrizioneGeneriAssociateAdUnBrano(branoServiceInstance, genereServiceInstance);
 
-			testInserimentoNuovoBrano(branoServiceInstance);
-
-			testModificaECheckDateBrano(branoServiceInstance);
-
-			testInserimentoNuovoGenereERicercaPerDescrizione(genereServiceInstance);
-
-			testCollegaGenereABrano(branoServiceInstance, genereServiceInstance);
-
-			testCreazioneECollegamentoBranoInUnSoloColpo(branoServiceInstance, genereServiceInstance);
-
-			testEstraiListaDescrizioneGeneriAssociateAdUnBrano(branoServiceInstance, genereServiceInstance);
+//			int lunghezza = 10;
+//			List<Brano> listaBrani = branoServiceInstance
+//					.trovaBraniLegatiAGeneriConDescrizioniPiuLungheDiDieci(lunghezza);
+//			for (Brano b : listaBrani){
+//				System.out.println("Brano trovato: " + " - " + b.getAutore());
+//				for (Genere g : b.getGeneri()) {
+//					System.out.println("Genere trovato: " + g.getDescrizione());
+//				}
+//			}
+			LocalDate dataInizio = LocalDate.parse("2020-01-01");
+			LocalDate dataFine = LocalDate.parse("2020-12-31");
+			List<Genere> listaGeneri = genereServiceInstance.cercaGeneriDiBraniTraDueDate(dataInizio, dataFine);
+			for (Genere g : listaGeneri) {
+				System.out.println("Genere trovato: " + g.getDescrizione());
+				for (Brano b : g.getBrani()) {
+					System.out.println("Brano trovato: " + b.getTitolo());
+				}
+			}
 
 			// *********************************************************************************
 			// RIMUOVIAMO UN BRANO E VEDIAMO COSA ACCADE AI GENERI
@@ -53,21 +73,21 @@ public class MyTest {
 			// REMOVE...
 			// DISASTRO!!! Perché prova a rimuovere anche i generi collegati!!!
 			// *********************************************************************************
-			testRimozioneBranoECheckGeneri(branoServiceInstance, genereServiceInstance);
-
-			// questo usa direttamente sql nativo che in moltissimi casi risulta la
-			// strategia migliore,
-			// più performante, esente da problemi di query sovrabbondanti
-			testRimozioneBranoECheckGeneriAttraversoNativeSql(branoServiceInstance, genereServiceInstance);
-
-			// TODO: TESTARE TUTTO IL CRUD
-
-			System.out.println(
-					"****************************** fine batteria di test ********************************************");
-			System.out.println(
-					"*************************************************************************************************");
-			System.out.println("In tabella Genere ci sono " + genereServiceInstance.listAll().size() + " elementi.");
-			System.out.println("In tabella Brano ci sono " + branoServiceInstance.listAll().size() + " elementi.");
+//			testRimozioneBranoECheckGeneri(branoServiceInstance, genereServiceInstance);
+//
+//			// questo usa direttamente sql nativo che in moltissimi casi risulta la
+//			// strategia migliore,
+//			// più performante, esente da problemi di query sovrabbondanti
+//			testRimozioneBranoECheckGeneriAttraversoNativeSql(branoServiceInstance, genereServiceInstance);
+//
+//			// TODO: TESTARE TUTTO IL CRUD
+//
+//			System.out.println(
+//					"****************************** fine batteria di test ********************************************");
+//			System.out.println(
+//					"*************************************************************************************************");
+//			System.out.println("In tabella Genere ci sono " + genereServiceInstance.listAll().size() + " elementi.");
+//			System.out.println("In tabella Brano ci sono " + branoServiceInstance.listAll().size() + " elementi.");
 
 		} catch (Throwable e) {
 			e.printStackTrace();

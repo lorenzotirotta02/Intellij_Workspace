@@ -275,4 +275,21 @@ public class BranoServiceImpl implements BranoService {
 		}
 	}
 
+	@Override
+	public List<Brano> trovaBraniLegatiAGeneriConDescrizioniPiuLungheDiDieci(int lunghezza) throws Exception {
+		EntityManager entityManager = EntityManagerUtil.getEntityManager();
+
+		try {
+			branoDAO.setEntityManager(entityManager);
+
+			return branoDAO.findBraniConDescrizioniPiuLungheDiDieci(lunghezza);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			EntityManagerUtil.closeEntityManager(entityManager);
+
+		}
+	}
+
 }

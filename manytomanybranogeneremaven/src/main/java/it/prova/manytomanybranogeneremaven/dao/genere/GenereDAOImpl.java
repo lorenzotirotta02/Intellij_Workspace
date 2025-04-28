@@ -1,5 +1,6 @@
 package it.prova.manytomanybranogeneremaven.dao.genere;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -54,6 +55,15 @@ public class GenereDAOImpl implements GenereDAO {
 		return query.getResultStream().findFirst().orElse(null);
 	}
 
+	@Override
+	public List<Genere> findGeneriBetweenTwoDates(LocalDate dataInizio, LocalDate dataFine) throws Exception {
+		TypedQuery<Genere> query = entityManager
+				.createQuery("select g from Genere g left join fetch g.brani b where b.dataPubblicazione between ?1 and ?2", Genere.class)
+				.setParameter(1,dataInizio);
+				query.setParameter(2,dataFine);
+		return query.getResultList();
+	}
+//						"select c FROM Brano c left join fetch c.generi g where length(g.descrizione) > ?1"
 	@Override
 	public void setEntityManager(EntityManager entityManager) {
 		this.entityManager = entityManager;

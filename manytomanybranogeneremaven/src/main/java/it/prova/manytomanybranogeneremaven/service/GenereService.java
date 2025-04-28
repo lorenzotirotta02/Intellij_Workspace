@@ -1,5 +1,6 @@
 package it.prova.manytomanybranogeneremaven.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import it.prova.manytomanybranogeneremaven.dao.genere.GenereDAO;
@@ -21,6 +22,8 @@ public interface GenereService {
 	public void aggiungiBrano(Genere genereInstance, Brano branoInstance) throws Exception;
 	
 	public Genere cercaPerDescrizione(String descrizione) throws Exception;
+
+	public List<Genere> cercaGeneriDiBraniTraDueDate(LocalDate dataInizio, LocalDate dataFine) throws Exception;
 
 	// per injection
 	public void setGenereDAO(GenereDAO genereDAO);

@@ -28,6 +28,8 @@ public interface BranoService {
 
 	public List<String> estraiListaDescrizioneGeneriAssociateAdUnBrano(Long idBranoInput) throws Exception;
 
+	public List<Brano> trovaBraniLegatiAGeneriConDescrizioniPiuLungheDiDieci(int lunghezza) throws Exception;
+
 	// per injection
 	public void setBranoDAO(BranoDAO branoDAO);
 
