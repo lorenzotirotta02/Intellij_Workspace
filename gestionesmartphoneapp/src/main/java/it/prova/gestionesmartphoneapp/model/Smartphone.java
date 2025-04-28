@@ -19,7 +19,7 @@ public class Smartphone {
 
     @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY)
     @JoinTable(name = "smartphone_app", joinColumns = @JoinColumn(name = "smartphone_id", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "app_id", referencedColumnName = "ID"))
-    private Set<App> apps = new HashSet<App>();
+    private Set<App> apps = new HashSet<>();
 
     public Smartphone() {
     }

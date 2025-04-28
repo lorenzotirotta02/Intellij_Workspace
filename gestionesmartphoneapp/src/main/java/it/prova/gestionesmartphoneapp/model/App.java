@@ -6,6 +6,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -17,9 +18,9 @@ public class App {
     public Long id;
     public String nome;
     @CreationTimestamp
-    public LocalDate dataInstallazione;
+    public LocalDateTime dataInstallazione;
     @UpdateTimestamp
-    public LocalDate dataUltimoAggiornamento;
+    public LocalDateTime dataUltimoAggiornamento;
     public String versione;
 
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "apps")
@@ -28,7 +29,7 @@ public class App {
     public App() {
     }
 
-    public App(String nome, LocalDate dataInstallazione, LocalDate dataUltimoAggiornamento, String versione) {
+    public App(String nome, LocalDateTime dataInstallazione, LocalDateTime dataUltimoAggiornamento, String versione) {
         this.nome = nome;
         this.dataInstallazione = dataInstallazione;
         this.dataUltimoAggiornamento = dataUltimoAggiornamento;
@@ -51,19 +52,19 @@ public class App {
         this.nome = nome;
     }
 
-    public LocalDate getDataInstallazione() {
+    public LocalDateTime getDataInstallazione() {
         return dataInstallazione;
     }
 
-    public void setDataInstallazione(LocalDate dataInstallazione) {
+    public void setDataInstallazione(LocalDateTime dataInstallazione) {
         this.dataInstallazione = dataInstallazione;
     }
 
-    public LocalDate getDataUltimoAggiornamento() {
+    public LocalDateTime getDataUltimoAggiornamento() {
         return dataUltimoAggiornamento;
     }
 
-    public void setDataUltimoAggiornamento(LocalDate dataUltimoAggiornamento) {
+    public void setDataUltimoAggiornamento(LocalDateTime dataUltimoAggiornamento) {
         this.dataUltimoAggiornamento = dataUltimoAggiornamento;
     }
 
