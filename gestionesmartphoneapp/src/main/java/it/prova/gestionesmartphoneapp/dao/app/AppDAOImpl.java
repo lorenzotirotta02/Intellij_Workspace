@@ -17,7 +17,7 @@ public class AppDAOImpl implements AppDAO{
 
     @Override
     public App get(Long id) throws Exception {
-        return null;
+        return entityManager.find(App.class, id);
     }
 
     @Override
@@ -38,11 +38,14 @@ public class AppDAOImpl implements AppDAO{
 
     @Override
     public void delete(App o) throws Exception {
-
+        if(o == null){
+            throw new Exception("Problema valore in input");
+        }
+        o = entityManager.merge(o);
     }
 
     @Override
     public void setEntityManager(EntityManager entityManager) {
-
+        this.entityManager = entityManager;
     }
 }
