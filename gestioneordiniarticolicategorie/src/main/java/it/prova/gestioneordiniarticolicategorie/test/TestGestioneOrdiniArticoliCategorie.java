@@ -40,13 +40,13 @@ public class TestGestioneOrdiniArticoliCategorie {
 //            testAggiornaCategoriaEsistente(categoriaServiceInstance);
 
             //Test Aggiunta Articolo a Categoria
-//            testAggiungiArticoloACategoria(articoloServiceInstance, categoriaServiceInstance, ordineServiceInstance);
+            testAggiungiArticoloACategoria(articoloServiceInstance, categoriaServiceInstance, ordineServiceInstance);
 
             // TEST Rimozione Articolo Scollegando da Categoria
             //testRimozioneArticoloScollegandoDaCategoria(articoloServiceInstance, categoriaServiceInstance, ordineServiceInstance);
 
             // TEST Rimozione Categoria Scollegando da Articolo
-            testRimozioneCategoriaScollegandoDaArticolo(articoloServiceInstance, categoriaServiceInstance, ordineServiceInstance);
+            //testRimozioneCategoriaScollegandoDaArticolo(articoloServiceInstance, categoriaServiceInstance, ordineServiceInstance);
 
             //TEST Rimozione Ordine
 //            testRimozioneOrdine(ordineServiceInstance, articoloServiceInstance);
