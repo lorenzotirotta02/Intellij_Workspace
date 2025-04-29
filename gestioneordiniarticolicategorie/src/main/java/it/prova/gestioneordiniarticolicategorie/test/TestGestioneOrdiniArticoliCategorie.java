@@ -43,12 +43,13 @@ public class TestGestioneOrdiniArticoliCategorie {
 //            testAggiungiArticoloACategoria(articoloServiceInstance, categoriaServiceInstance, ordineServiceInstance);
 
             // TEST Rimozione Articolo Scollegando da Categoria
-//            testRimozioneArticoloScollegandoDaCategoria(articoloServiceInstance, categoriaServiceInstance, ordineServiceInstance);
+            //testRimozioneArticoloScollegandoDaCategoria(articoloServiceInstance, categoriaServiceInstance, ordineServiceInstance);
 
             // TEST Rimozione Categoria Scollegando da Articolo
-//            testRimozioneArticoloCollegatoACategoria(articoloServiceInstance, categoriaServiceInstance, ordineServiceInstance);
+            testRimozioneCategoriaScollegandoDaArticolo(articoloServiceInstance, categoriaServiceInstance, ordineServiceInstance);
+
             //TEST Rimozione Ordine
-            testRimozioneOrdine(ordineServiceInstance, articoloServiceInstance);
+//            testRimozioneOrdine(ordineServiceInstance, articoloServiceInstance);
 
         }catch (Throwable e){
             e.printStackTrace();
@@ -221,13 +222,16 @@ public class TestGestioneOrdiniArticoliCategorie {
 
         articoloService.rimuoviArticoloCollegatoACategoria(articolo);
 
-        if (articolo.getId() != null){
+        Articolo articoloVerificato = articoloService.trovaArticolo(articolo.getId());
+        if (articoloVerificato != null){
             throw new RuntimeException("Errore nella rimozione dell'articolo dalla categoria");
+        }else {
+            System.out.println("Articolo rimosso!");
         }
 
         System.out.println(".......testRimozioneArticoloScollegandoDaCategoria fine: PASSED.............");
     }
-    public static void testRimozioneArticoloCollegatoACategoria(ArticoloService articoloService, CategoriaService categoriaService, OrdineService ordineService) throws Exception {
+    public static void testRimozioneCategoriaScollegandoDaArticolo(ArticoloService articoloService, CategoriaService categoriaService, OrdineService ordineService) throws Exception {
         System.out.println(".......testRimozioneArticoloScollegandoDaCategoria inizio.............");
 
         Ordine ordine = new Ordine("Mario", "Via Roma 144", java.time.LocalDateTime.now(), java.time.LocalDateTime.now().plusDays(5));
@@ -248,9 +252,11 @@ public class TestGestioneOrdiniArticoliCategorie {
 
         categoriaService.eliminaCategoriaCollegataAdArticolo(categoria);
 
-
-        if (categoria.getId() != null){
+        Categoria categoriaDaVerificare = categoriaService.trovaById(categoria.getId());
+        if (categoriaDaVerificare != null){
             throw new RuntimeException("Errore nella rimozione dell'articolo dalla categoria");
+        }else{
+            System.out.println("Categoria rimossa!");
         }
 
         System.out.println(".......testRimozioneArticoloCollegatoACategoria fine: PASSED.............");
@@ -258,12 +264,7 @@ public class TestGestioneOrdiniArticoliCategorie {
     public static void testRimozioneOrdine(OrdineService ordineService, ArticoloService articoloService) throws Exception {
         System.out.println(".......testRimozioneOrdine inizio.............");
 
-        Ordine ordine = new Ordine("Mario", "Via Roma 144", java.time.LocalDateTime.now(), java.time.LocalDateTime.now().plusDays(5));
-        ordineService.aggiungiOrdine(ordine);
-
-        Articolo articolo = new Articolo("Articolo 54", "Descrizione articolo 3", 30.99, java.time.LocalDateTime.now());
-        articolo.setOrdine(ordine);
-        articoloService.aggiungiArticolo(articolo);
+        Ordine ordine = ordineService.trovaById(4L);
 
         ordineService.rimuoviOrdine(ordine.getId());
 
