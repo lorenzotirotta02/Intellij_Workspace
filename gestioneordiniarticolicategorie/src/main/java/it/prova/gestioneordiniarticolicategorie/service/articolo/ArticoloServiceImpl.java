@@ -6,6 +6,7 @@ import it.prova.gestioneordiniarticolicategorie.model.Articolo;
 
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
+import java.util.List;
 
 public class ArticoloServiceImpl implements ArticoloService{
 
@@ -119,4 +120,55 @@ public class ArticoloServiceImpl implements ArticoloService{
             entityManager.close();
         }
     }
+
+    @Override
+    public double sommaPrezziArticoliCollegatiACategoria(Long id) throws Exception {
+        EntityManager entityManager = EntityManagerUtil.getEntityManager();
+
+        try {
+            if(id == null){
+                throw new RuntimeException("Valore in input non valido");
+            }
+            articoloDao.setEntityManager(entityManager);
+
+            return articoloDao.sumAllPrezziDiArticoliLinkedToOneCategoria(id);
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }finally {
+            entityManager.close();
+
+        }
+    }
+
+    @Override
+    public double sommaPrezziArticoliConNomeDestinatario(String nomeDestinatario) throws Exception {
+        EntityManager entityManager = EntityManagerUtil.getEntityManager();
+        try{
+            if(nomeDestinatario == null){
+                throw new RuntimeException("Valore in input non valido");
+            }
+            articoloDao.setEntityManager(entityManager);
+
+            return articoloDao.sumAllPrezziDiArticoliWithNomeDestinatario(nomeDestinatario);
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public List<Articolo> trovaArticoliConDataSpedizioneDopoDataDiScadenza() throws Exception {
+        EntityManager entityManager = EntityManagerUtil.getEntityManager();
+        try{
+            articoloDao.setEntityManager(entityManager);
+            return articoloDao.findAllWithDataSpedizioneAfterDataDiScadenza();
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            entityManager.close();
+        }
+    }
+
 }

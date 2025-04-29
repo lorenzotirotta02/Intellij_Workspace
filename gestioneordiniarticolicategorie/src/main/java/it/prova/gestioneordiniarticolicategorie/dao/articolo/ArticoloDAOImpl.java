@@ -59,4 +59,30 @@ public class ArticoloDAOImpl implements ArticoloDAO{
                 .setParameter(1, articoloInstance.getId()).executeUpdate();
         entityManager.remove(entityManager.merge(articoloInstance));
     }
+    @Override
+    public double sumAllPrezziDiArticoliLinkedToOneCategoria(Long id) throws Exception{
+        if (id == null){
+            throw new Exception("Valore in input non valido");
+        }
+        return entityManager.createQuery("select sum(a.prezzoSingolo) from Articolo a join a.categorie c where c.id = :id", Double.class)
+                .setParameter("id", id)
+                .getSingleResult();
+    }
+
+    @Override
+    public double sumAllPrezziDiArticoliWithNomeDestinatario(String nomeDestinatario) throws Exception {
+        if (nomeDestinatario == null){
+            throw new Exception("Valore in input non valido");
+        }
+        return entityManager.createQuery("select sum(a.prezzoSingolo) from Articolo a join a.ordine o where o.nomeDestinatario = :nomeDestinatario", Double.class)
+                .setParameter("nomeDestinatario", nomeDestinatario)
+                .getSingleResult();
+    }
+
+    @Override
+    public List<Articolo> findAllWithDataSpedizioneAfterDataDiScadenza() throws Exception {
+        return entityManager.createQuery("select a from Articolo a " +
+                        "left join a.ordine o where o.dataSpedizione > o.dataScadenza", Articolo.class)
+                .getResultList();
+    }
 }

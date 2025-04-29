@@ -60,4 +60,14 @@ public class CategoriaDAOImpl implements CategoriaDAO {
         entityManager.remove(entityManager.merge(categoriaInstance));
     }
 
+    @Override
+    public Categoria findByIdEager(Long id) throws Exception {
+        if (id == null){
+            throw new Exception("Problema valore in input");
+        }
+        return entityManager.createQuery("select c from Categoria c left join fetch c.articoli a where c.id = :id", Categoria.class)
+                .setParameter("id", id)
+                .getSingleResult();
+    }
+
 }

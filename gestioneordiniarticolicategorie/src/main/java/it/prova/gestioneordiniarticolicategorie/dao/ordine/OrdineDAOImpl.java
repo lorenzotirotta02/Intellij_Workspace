@@ -4,6 +4,7 @@ import it.prova.gestioneordiniarticolicategorie.model.Categoria;
 import it.prova.gestioneordiniarticolicategorie.model.Ordine;
 
 import javax.persistence.EntityManager;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class OrdineDAOImpl implements OrdineDAO{
@@ -58,5 +59,39 @@ public class OrdineDAOImpl implements OrdineDAO{
         return entityManager.createQuery("select distinct o from Ordine o left join fetch o.articoli a left join fetch a.categorie where o.id = :id", Ordine.class)
                 .setParameter("id", id)
                 .getSingleResult();
+    }
+
+    @Override
+    public Ordine findPiuRecenteByCategoria(Long idCategoria) throws Exception {
+        if (idCategoria == null) {
+            throw new Exception("Problema valore in input");
+        }
+        return entityManager.createQuery("select o from Ordine o left join fetch o.articoli a left join fetch a.categorie c where c.id = :idCategoria order by o.dataSpedizione desc", Ordine.class)
+                .setParameter("idCategoria", idCategoria)
+                .getSingleResult();
+    }
+
+    @Override
+    public boolean findByNomeDestinatario(String nomeDestinatario) throws Exception {
+        if (nomeDestinatario == null) {
+            throw new Exception("Problema valore in input");
+        }
+        Long count = entityManager.createQuery(
+                        "select count(o) from Ordine o where o.nomeDestinatario = :nomeDestinatario", Long.class)
+                .setParameter("nomeDestinatario", nomeDestinatario)
+                .getSingleResult();
+        return count > 0;
+
+    }
+
+    @Override
+    public List<Ordine> findDistinctByStringInNumeroSeriale(String stringa) throws Exception {
+        if (stringa == null){
+            throw new Exception("Problema valore in input");
+        }
+        return entityManager.createQuery("select distinct o from Ordine o left join " +
+                        "o.articoli a where a.numeroSeriale like :numeroSeriale", Ordine.class)
+                .setParameter("numeroSeriale", "%" + stringa + "%")
+                .getResultList();
     }
 }

@@ -11,4 +11,5 @@ public interface CategoriaService {
     Categoria trovaById(Long id) throws Exception;
     void setCategoriaDAO(CategoriaDAO categoriaDAOInstance);
     void eliminaCategoriaCollegataAdArticolo(Categoria categoriaInstance) throws Exception;
+    Categoria trovaByIdEager(Long id) throws Exception;
 }

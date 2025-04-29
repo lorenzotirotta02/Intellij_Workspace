@@ -96,4 +96,20 @@ public class CategoriaServiceImpl implements CategoriaService{
             entityManager.close();
         }
     }
+
+    @Override
+    public Categoria trovaByIdEager(Long id) throws Exception {
+        EntityManager entityManager = EntityManagerUtil.getEntityManager();
+        try{
+            if(id == null){
+                throw new Exception("Problema valore in input");
+            }
+            categoriaDAO.setEntityManager(entityManager);
+            return categoriaDAO.findByIdEager(id);
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            entityManager.close();
+        }
+    }
 }

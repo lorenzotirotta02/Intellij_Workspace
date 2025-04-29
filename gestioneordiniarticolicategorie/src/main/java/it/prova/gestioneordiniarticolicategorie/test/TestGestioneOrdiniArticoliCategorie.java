@@ -10,6 +10,9 @@ import it.prova.gestioneordiniarticolicategorie.service.articolo.ArticoloService
 import it.prova.gestioneordiniarticolicategorie.service.categoria.CategoriaService;
 import it.prova.gestioneordiniarticolicategorie.service.ordine.OrdineService;
 
+import java.util.List;
+import java.util.Set;
+
 public class TestGestioneOrdiniArticoliCategorie {
     public static void main(String[] args){
         ArticoloService articoloServiceInstance = MyServiceFactory.getArticoloServiceInstance();
@@ -40,7 +43,7 @@ public class TestGestioneOrdiniArticoliCategorie {
 //            testAggiornaCategoriaEsistente(categoriaServiceInstance);
 
             //Test Aggiunta Articolo a Categoria
-            testAggiungiArticoloACategoria(articoloServiceInstance, categoriaServiceInstance, ordineServiceInstance);
+         //   testAggiungiArticoloACategoria(articoloServiceInstance, categoriaServiceInstance, ordineServiceInstance);
 
             // TEST Rimozione Articolo Scollegando da Categoria
             //testRimozioneArticoloScollegandoDaCategoria(articoloServiceInstance, categoriaServiceInstance, ordineServiceInstance);
@@ -50,6 +53,21 @@ public class TestGestioneOrdiniArticoliCategorie {
 
             //TEST Rimozione Ordine
 //            testRimozioneOrdine(ordineServiceInstance, articoloServiceInstance);
+
+            // TEST sommaPrezziArticoli
+//            testSommaPrezziArticoli(articoloServiceInstance, categoriaServiceInstance, ordineServiceInstance);
+
+            //TEST trovaPiuRecente
+//            testTrovaOrdinePiuRecenteByCategoria(ordineServiceInstance, categoriaServiceInstance);
+
+            //TEST sommaPrezziArticoliConNomeDestinatario
+//            testSommaPrezziArticoliConNomeDestinatario(articoloServiceInstance, ordineServiceInstance);
+
+            //TEST trovaOrdiniByStringaInNumeroSeriale
+//            testTrovaOrdiniByStringaInNumeroSeriale(ordineServiceInstance);
+            //TEST trovaArticoliConDataSpedizioneDopoDataDiScadenza
+            testTrovaArticoliConDataSpedizioneDopoDataDiScadenza(articoloServiceInstance);
+
 
         }catch (Throwable e){
             e.printStackTrace();
@@ -222,7 +240,9 @@ public class TestGestioneOrdiniArticoliCategorie {
 
         articoloService.rimuoviArticoloCollegatoACategoria(articolo);
 
+        // SALVO L'ARTICOLO TROVATO CON L'ID PER VERIFICARE SE SIA STATO CANCELLATO CORRETTAMENTE
         Articolo articoloVerificato = articoloService.trovaArticolo(articolo.getId());
+
         if (articoloVerificato != null){
             throw new RuntimeException("Errore nella rimozione dell'articolo dalla categoria");
         }else {
@@ -269,5 +289,84 @@ public class TestGestioneOrdiniArticoliCategorie {
         ordineService.rimuoviOrdine(ordine.getId());
 
         System.out.println(".......testRimozioneOrdine fine: PASSED.............");
+    }
+    public static void testSommaPrezziArticoli(ArticoloService articoloService, CategoriaService categoriaService, OrdineService ordineService) throws Exception {
+        System.out.println(".......testSommaPrezziArticoli inizio.............");
+
+        Categoria categoria = categoriaService.trovaByIdEager(19L);
+
+        double risultato = articoloService.sommaPrezziArticoliCollegatiACategoria(categoria.getId());
+
+        Set<Articolo> result = categoria.getArticoli();
+        if (result.isEmpty()){
+            throw new RuntimeException("La categoria non contiene articoli");
+        }
+
+        System.out.println("La somma dei prezzi articoli per la categoria è: " + risultato);
+
+
+        System.out.println(".......testSommaPrezziArticoli fine: PASSED.............");
+    }
+    public static void testTrovaOrdinePiuRecenteByCategoria(OrdineService ordineService, CategoriaService categoriaService) throws Exception {
+        System.out.println(".......testTrovaOrdinePiuRecenteByCategoria inizio.............");
+
+        Categoria categoria = categoriaService.trovaByIdEager(19L);
+
+        Ordine ordine = ordineService.trovaPiuRecenteByCategoria(categoria.getId());
+
+        if (ordine == null)
+            throw new RuntimeException("testTrovaOrdinePiuRecenteByCategoria fallito ");
+
+        System.out.println("L'ordine più recente per la categoria è: " + ordine.getId() + " - " + ordine.getNomeDestinatario());
+
+        System.out.println(".......testTrovaOrdinePiuRecenteByCategoria fine: PASSED.............");
+    }
+    public static void testSommaPrezziArticoliConNomeDestinatario(ArticoloService articoloService, OrdineService ordineService) throws Exception {
+        System.out.println(".......testSommaPrezziArticoli inizio.............");
+
+        String nomeDestinatario = "Mario Rossi";
+        boolean trovato = ordineService.trovaByNomeDestinatario(nomeDestinatario);
+
+        double risultato = articoloService.sommaPrezziArticoliConNomeDestinatario(nomeDestinatario);
+
+        if (!trovato){
+            throw new RuntimeException("Non esiste nessun destinatario con questo nome");
+        }
+
+        System.out.println("La somma dei prezzi articoli per questo destinatario è: " + risultato);
+
+
+        System.out.println(".......testSommaPrezziArticoli fine: PASSED.............");
+    }
+    public static void testTrovaOrdiniByStringaInNumeroSeriale(OrdineService ordineService) throws Exception {
+        System.out.println(".......testTrovaOrdiniByStringaInNumeroSeriale inizio.............");
+
+        String stringa = "articolo 3";
+        List<Ordine> ordini = ordineService.trovaOrdiniDistintiByStringaInNumeroSeriale(stringa);
+
+        if (ordini.isEmpty()){
+            throw new RuntimeException("Non esistono articoli con questa stringa");
+        }
+
+        for (Ordine ordine : ordini) {
+            System.out.println(ordine.getId() + " - " + ordine.getNomeDestinatario());
+        }
+
+        System.out.println(".......testTrovaOrdiniByStringaInNumeroSeriale fine: PASSED.............");
+    }
+    public static void testTrovaArticoliConDataSpedizioneDopoDataDiScadenza(ArticoloService articoloService) throws Exception {
+        System.out.println(".......testTrovaArticoliConDataSpedizioneDopoDataDiScadenza inizio.............");
+
+        List<Articolo> articoli = articoloService.trovaArticoliConDataSpedizioneDopoDataDiScadenza();
+
+        if (articoli.isEmpty()){
+            throw new RuntimeException("Non esistono articoli con data di spedizione dopo quella di scadenza");
+        }
+
+        for (Articolo articolo : articoli) {
+            System.out.println(articolo.getId() + " - " + articolo.getDescrizione());
+        }
+
+        System.out.println(".......testTrovaArticoliConDataSpedizioneDopoDataDiScadenza fine: PASSED.............");
     }
 }
