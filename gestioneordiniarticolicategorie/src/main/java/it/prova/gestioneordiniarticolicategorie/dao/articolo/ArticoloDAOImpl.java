@@ -49,4 +49,14 @@ public class ArticoloDAOImpl implements ArticoloDAO{
     public void setEntityManager(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
+
+    @Override
+    public void deleteArticoloLinkedToCategorie(Articolo articoloInstance) throws Exception {
+        if (articoloInstance == null) {
+            throw new Exception("Valore in input non valido");
+        }
+        entityManager.createNativeQuery("delete from articolo_categoria where articolo_id = ?")
+                .setParameter(1, articoloInstance.getId()).executeUpdate();
+        entityManager.remove(entityManager.merge(articoloInstance));
+    }
 }

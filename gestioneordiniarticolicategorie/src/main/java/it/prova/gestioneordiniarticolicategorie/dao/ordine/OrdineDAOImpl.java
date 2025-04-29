@@ -49,4 +49,14 @@ public class OrdineDAOImpl implements OrdineDAO{
     public void setEntityManager(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
+
+    @Override
+    public Ordine findByIdEager(Long id) throws Exception {
+        if(id == null){
+            throw new Exception("Problema valore in input");
+        }
+        return entityManager.createQuery("select distinct o from Ordine o left join fetch o.articoli a left join fetch a.categorie where o.id = :id", Ordine.class)
+                .setParameter("id", id)
+                .getSingleResult();
+    }
 }

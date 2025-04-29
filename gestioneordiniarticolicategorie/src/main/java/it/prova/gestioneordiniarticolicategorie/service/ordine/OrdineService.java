@@ -10,4 +10,5 @@ public interface OrdineService {
     void aggiornaOrdine(Ordine ordineInstance) throws Exception;
     Ordine trovaById(Long id) throws Exception;
     void setOrdineDAO(OrdineDAO ordineDAOInstance);
+    Ordine trovaByIdEager(Long id) throws Exception;
 }

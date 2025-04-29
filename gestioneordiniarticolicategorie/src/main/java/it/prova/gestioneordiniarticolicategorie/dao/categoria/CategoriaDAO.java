@@ -4,5 +4,5 @@ import it.prova.gestioneordiniarticolicategorie.dao.IBaseDAO;
 import it.prova.gestioneordiniarticolicategorie.model.Categoria;
 
 public interface CategoriaDAO extends IBaseDAO<Categoria> {
-
+    void deleteCategoriaLinkedToArticoli(Categoria categoriaInstance) throws Exception;
 }

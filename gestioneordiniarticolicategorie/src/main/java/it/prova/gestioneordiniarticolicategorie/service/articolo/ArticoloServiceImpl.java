@@ -98,4 +98,25 @@ public class ArticoloServiceImpl implements ArticoloService{
     public void setArticoloDao(ArticoloDAO articoloDAOInstance) {
         this.articoloDao = articoloDAOInstance;
     }
+
+    @Override
+    public void rimuoviArticoloCollegatoACategoria(Articolo articoloInstance) throws Exception {
+        EntityManager entityManager = EntityManagerUtil.getEntityManager();
+        try {
+            if (articoloInstance == null) {
+                throw new Exception("Valore in input non valido");
+            }
+            entityManager.getTransaction().begin();
+
+            articoloDao.setEntityManager(entityManager);
+            articoloDao.deleteArticoloLinkedToCategorie(articoloInstance);
+
+            entityManager.getTransaction().commit();
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            entityManager.close();
+        }
+    }
 }

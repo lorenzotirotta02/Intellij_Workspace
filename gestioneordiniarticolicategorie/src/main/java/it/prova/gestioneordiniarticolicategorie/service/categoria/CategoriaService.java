@@ -5,9 +5,10 @@ import it.prova.gestioneordiniarticolicategorie.model.Categoria;
 
 public interface CategoriaService {
 
-    void AggiungiCategoria(Categoria categoriaInstance) throws Exception;
+    void aggiungiCategoria(Categoria categoriaInstance) throws Exception;
     void rimuoviCategoria(Long id) throws Exception;
     void aggiornaCategoria(Categoria categoriaInstance) throws Exception;
     Categoria trovaById(Long id) throws Exception;
     void setCategoriaDAO(CategoriaDAO categoriaDAOInstance);
+    void eliminaCategoriaCollegataAdArticolo(Categoria categoriaInstance) throws Exception;
 }

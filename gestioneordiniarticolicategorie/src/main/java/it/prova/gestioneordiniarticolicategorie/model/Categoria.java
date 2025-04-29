@@ -16,6 +16,9 @@ public class Categoria {
     private String descrizione;
     private String codice;
 
+    public Set<Articolo> getArticoli() {
+        return articoli;
+    }
 
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "categorie")
     private Set<Articolo> articoli = new HashSet<>();

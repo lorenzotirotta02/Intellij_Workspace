@@ -50,4 +50,14 @@ public class CategoriaDAOImpl implements CategoriaDAO {
     public void setEntityManager(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
+    @Override
+    public void deleteCategoriaLinkedToArticoli(Categoria categoriaInstance) throws Exception {
+        if (categoriaInstance == null) {
+            throw new Exception("Valore in input non valido");
+        }
+        entityManager.createNativeQuery("delete from articolo_categoria where categoria_id = ?")
+                .setParameter(1, categoriaInstance.getId()).executeUpdate();
+        entityManager.remove(entityManager.merge(categoriaInstance));
+    }
+
 }

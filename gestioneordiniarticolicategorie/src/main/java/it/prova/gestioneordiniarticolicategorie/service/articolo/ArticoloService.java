@@ -10,4 +10,5 @@ public interface ArticoloService {
     void aggiungiArticolo(Articolo articoloInstance) throws Exception;
     void rimuoviArticolo(Long id) throws Exception;
     void setArticoloDao(ArticoloDAO articoloDAOInstance);
+    void rimuoviArticoloCollegatoACategoria(Articolo articoloInstance) throws Exception;
 }
