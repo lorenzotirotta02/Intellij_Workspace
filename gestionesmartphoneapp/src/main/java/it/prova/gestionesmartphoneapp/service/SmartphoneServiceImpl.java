@@ -31,8 +31,7 @@ public class SmartphoneServiceImpl implements SmartphoneService {
 
             smartphoneDAO.setEntityManager(entityManager);
 
-            Smartphone smartphone = smartphoneDAO.get(id);
-            smartphoneDAO.delete(smartphone);
+            smartphoneDAO.delete(smartphoneDAO.get(id));
 
             entityManager.getTransaction().commit();
 

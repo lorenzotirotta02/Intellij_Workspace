@@ -73,10 +73,11 @@ public class testGestioneSmartphoneApp {
         System.out.println(".......testAggiornaVersioneOs inizio.............");
 
         String versione = "1.59";
-        Smartphone smartphone = smartphoneServiceInstance.trovaById(1L);
+        Smartphone smartphone = new Smartphone("Samsung", "Galaxy S21", 699.99, "1.28");
+        smartphoneServiceInstance.aggiungiSmartphone(smartphone);
 
         if(smartphone.getVersioneOs().equals(versione)){
-            System.out.println("testAggiornaVersioneOs fallito");
+            throw new RuntimeException("Versione dello smartphone uguale a quella in input");
         }
         smartphone.setVersioneOs(versione);
         smartphoneServiceInstance.aggiornaVersioneOs(smartphone);
@@ -90,7 +91,7 @@ public class testGestioneSmartphoneApp {
         LocalDateTime currentDateTime = LocalDateTime.now();
 
         if(app.getVersione().equals(versione)){
-            System.out.println("testAggiornaVersioneOs fallito");
+            throw new RuntimeException("Versione dell'app uguale a quella in input");
         }
         app.setVersione(versione);
         app.setDataUltimoAggiornamento(currentDateTime);
@@ -104,10 +105,21 @@ public class testGestioneSmartphoneApp {
         Smartphone smartphone = new Smartphone("Samsung", "Galaxy S21", 699.99, "1.28");
 
         smartphone.getApps().add(app);
+
+        if (smartphone.getApps().isEmpty()){
+            throw new RuntimeException("testAggiungiAppASmartphone fallito: non ci sono app");
+        }
         app.getSmartphone().add(smartphone);
+
+        if (app.getSmartphone().isEmpty()){
+            throw new RuntimeException("testAggiungiAppASmartphone fallito: non ci sono smartphone");
+        }
+
 
         // Salvo solo lo smartphone (che si porta dietro le App)
         smartphoneService.aggiungiSmartphone(smartphone);
+        if(smartphone.getId() == null)
+            throw new RuntimeException("testAggiungiAppASmartphone fallito: smartphone non salvato");
 
         // Se non hai cascade persist devi salvare anche app a mano, ma prima smartphone!
 
@@ -116,39 +128,61 @@ public class testGestioneSmartphoneApp {
     private static void testDisinstallazioneAppDaSmartphone(SmartphoneService smartphoneService, AppService appService) throws Exception {
         System.out.println(".......testDisinstallazioneAppDaSmartphone inizio.............");
 
-        smartphoneService.trovaSmartphoneConApp(6L);
+        Smartphone smartphoneEsistente = new Smartphone("Telefono2", "211", 699.99, "1.28");
+        smartphoneService.aggiungiSmartphone(smartphoneEsistente);
+        if(smartphoneEsistente == null || smartphoneEsistente.getApps().isEmpty()) {
+            throw new RuntimeException("testDisinstallazioneAppDaSmartphone fallito : smartphone non trovato o non associato");
+        }
 
-        App app = appService.trovaById(3L);
+        App app = new App("App1", LocalDateTime.now(), LocalDateTime.now(), "2.23.10");
+        appService.aggiungiApp(app);
+        if(app == null ) {
+            throw new RuntimeException("testDisinstallazioneAppDaSmartphone fallito o app null");
+        }
+        if(!smartphoneEsistente.getApps().stream().map( it -> it.getId()).toList().contains(app.getId()))
+            throw new RuntimeException("testDisinstallazioneAppDaSmartphone fallito : app non associata a smartphone");
 
         smartphoneService.disinstallaApp(app.getId());
+        if(smartphoneEsistente.getApps().stream().map( it -> it.getId()).toList().contains(app.getId())) {
+            throw new RuntimeException("testDisinstallazioneAppDaSmartphone fallito : app non disinstallata");
+        }
 
         System.out.println(".......testDisinstallazioneAppDaSmartphone fine: PASSED.............");
     }
     private static void testRimozioneSmartphone(SmartphoneService smartphoneService, AppService appService) throws Exception {
         System.out.println(".......testRimozioneSmartphone inizio.............");
 
-        Smartphone smartphone = new Smartphone("Nokia", "211", 699.99, "1.28");
+        Smartphone smartphone = new Smartphone("Telefono1", "211", 699.99, "1.28");
 
-        App app = new App("Facebook", LocalDateTime.now(), LocalDateTime.now(), "2.23.10");
-        App app2 = new App("Instagram", LocalDateTime.now(), LocalDateTime.now(), "2.23.10");
+        App app = new App("App1", LocalDateTime.now(), LocalDateTime.now(), "2.23.10");
+        App app2 = new App("App2", LocalDateTime.now(), LocalDateTime.now(), "2.23.10");
 
         smartphone.getApps().add(app);
         smartphone.getApps().add(app2);
-        app.getSmartphone().add(smartphone);
+        if(smartphone.getApps().isEmpty()){
+            throw new RuntimeException("testRimozioneSmartphone fallito: non ci sono app");
+        }
 
         smartphoneService.aggiungiSmartphone(smartphone);
+        if(smartphone.getId() == null)
+            throw new RuntimeException("testRimozioneSmartphone fallito: smartphone non salvato");
 
         // Scollego smartphone da app
         smartphoneService.disinstallaApp(app.getId());
+        if(smartphone.getApps().stream().map( it -> it.getId()).toList().contains(app.getId())) {
+            throw new RuntimeException("testRimozioneSmartphone fallito: app non disinstallata");
+        }
         smartphoneService.disinstallaApp(app2.getId());
+        if (smartphone.getApps().stream().map( it -> it.getId()).toList().contains(app2.getId())) {
+            throw new RuntimeException("testRimozioneSmartphone fallito: app2 non disinstallata");
+        }
 
         // Rimuovo smartphone
         smartphoneService.rimuoviSmartphone(smartphone.getId());
-        // Rimuovo app
-        appService.rimuoviApp(app.getId());
-        appService.rimuoviApp(app2.getId());
+        if(smartphoneService.trovaById(smartphone.getId()) != null) {
+            throw new RuntimeException("testRimozioneSmartphone fallito: smartphone non rimosso");
+        }
 
-        //DOMANDA DA FARE SUL PERCHE' NON FUNZIONA
 
         System.out.println(".......testRimozioneSmartphone fine: PASSED.............");
     }

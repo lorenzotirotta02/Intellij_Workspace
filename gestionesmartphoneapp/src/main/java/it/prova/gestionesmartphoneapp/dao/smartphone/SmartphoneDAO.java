@@ -10,5 +10,6 @@ public interface SmartphoneDAO extends IBaseDAO<Smartphone> {
     void addApp(Smartphone smartphoneInstance) throws Exception;
     void removeAppFromSmartphone(Long id) throws Exception;
     Smartphone findByIdFetchApps(Long id) throws Exception;
+    
 }
 

@@ -62,7 +62,7 @@ public class SmartphoneDAOImpl implements SmartphoneDAO{
         if(o == null) {
             throw new Exception("Problema valore in input");
         }
-        o = entityManager.merge(o);
+        entityManager.remove(entityManager.merge(o));
     }
 
     @Override
@@ -96,4 +96,6 @@ public class SmartphoneDAOImpl implements SmartphoneDAO{
                 .setParameter("id", id)
                 .getSingleResult();
     }
+
+
 }
