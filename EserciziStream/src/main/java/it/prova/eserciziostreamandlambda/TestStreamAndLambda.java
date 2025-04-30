@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 
 import static java.util.stream.Collectors.groupingBy;
 
@@ -55,7 +54,7 @@ public class TestStreamAndLambda {
                 .map(PostaDiPaese::getIndirizzoSede)
                 .toList();
         System.out.println("Indirizzi di tutte le poste con più di 20 dipendenti:\n");
-        indirizziPosteConDipendentiSuperiore20.forEach(p -> System.out.println(p));
+        indirizziPosteConDipendentiSuperiore20.forEach(p -> System.out.print(p + ", "));
 
         System.out.println("\n");
 
@@ -66,7 +65,7 @@ public class TestStreamAndLambda {
                 .map(Destinatario::getIndirizzo)
                 .toList();
         System.out.println("Indirizzi di tutti i destinatari di poste con almeno 10 dipendenti:\n");
-        indirizziDestinatariConPosteConDipendentiSuperiore10.forEach(p -> System.out.println(p));
+        indirizziDestinatariConPosteConDipendentiSuperiore10.forEach(p -> System.out.print(p + ", " + "\n"));
 
         System.out.println("\n");
 
@@ -79,7 +78,7 @@ public class TestStreamAndLambda {
                 .map(Destinatario::getIndirizzo)
                 .toList();
         System.out.println("Indirizzi di tutti i destinatari possessori di conto corrente e appartenenti a poste con numero dipendenti compreso tra 50 e 100:\n");
-        indirizziDestinatariPossessoriDiContoCorrenteEAppartenentiAPosteConNumeroDipendentiTra50E100.forEach(p -> System.out.println(p));
+        indirizziDestinatariPossessoriDiContoCorrenteEAppartenentiAPosteConNumeroDipendentiTra50E100.forEach(p -> System.out.print(p + ", "));
 
         System.out.println("\n");
 
@@ -93,7 +92,7 @@ public class TestStreamAndLambda {
                 .map(Destinatario::getEta)
                 .toList();
         System.out.println("Età di tutti i destinatari delle poste che contengono nel campo denominazione la stringa ‘Centrale’ e sono state aperta dopo il primo gennaio 2000:\n");
-        etaDestinatariDellePosteConDenominazioneCentraleEDataAperturaDopo2000.forEach(p -> System.out.println(p));
+        etaDestinatariDellePosteConDenominazioneCentraleEDataAperturaDopo2000.forEach(p -> System.out.print(p + ", "));
 
         System.out.println("\n");
 
@@ -106,13 +105,13 @@ public class TestStreamAndLambda {
 
         System.out.println("\n");
 
-        // 8) Estrarre la lista con solo i cognomi dei dipendenti di tutte le poste
+        // 8) Estrarre la lista con solo i cognomi dei destinatari di tutte le poste
         System.out.println("Voglio la lista con solo i cognomi dei dipendenti di tutte le poste\n");
 
-        List<String> cognomiDipendentiDiTutteLePoste = destinatariMock.stream()
+        List<String> cognomiDestinatarioDiTutteLePoste = destinatariMock.stream()
                 .map(destinatario -> destinatario.getCognome()).toList();
         System.out.println("Cognomi dei dipendenti di tutte le poste:\n");
-        cognomiDipendentiDiTutteLePoste.forEach(p -> System.out.println(p));
+        cognomiDestinatarioDiTutteLePoste.forEach(p -> System.out.print(p + ", "));
 
         System.out.println("\n");
 
