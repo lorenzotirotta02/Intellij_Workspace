@@ -2,6 +2,11 @@ package main.java.it.prova.eserciziostreamandlambda;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
+
+import static java.util.stream.Collectors.groupingBy;
 
 public class TestStreamAndLambda {
 
@@ -90,6 +95,56 @@ public class TestStreamAndLambda {
         System.out.println("Età di tutti i destinatari delle poste che contengono nel campo denominazione la stringa ‘Centrale’ e sono state aperta dopo il primo gennaio 2000:\n");
         etaDestinatariDellePosteConDenominazioneCentraleEDataAperturaDopo2000.forEach(p -> System.out.println(p));
 
+        System.out.println("\n");
 
+        // 7) Calcolare la somma totale del numero totale di dipendenti di tutte le poste
+        System.out.println("Voglio la somma totale del numero totale di dipendenti di tutte le poste\n");
+        int sommaTotaleDipendenti = postaDiPaeseMock.stream()
+                .mapToInt(posta -> posta.getNumeroDipendenti())
+                .sum();
+        System.out.println("La somma totale del numero totale di dipendenti di tutte le poste è: " + sommaTotaleDipendenti);
+
+        System.out.println("\n");
+
+        // 8) Estrarre la lista con solo i cognomi dei dipendenti di tutte le poste
+        System.out.println("Voglio la lista con solo i cognomi dei dipendenti di tutte le poste\n");
+
+        List<String> cognomiDipendentiDiTutteLePoste = destinatariMock.stream()
+                .map(destinatario -> destinatario.getCognome()).toList();
+        System.out.println("Cognomi dei dipendenti di tutte le poste:\n");
+        cognomiDipendentiDiTutteLePoste.forEach(p -> System.out.println(p));
+
+        System.out.println("\n");
+
+        // 9) Verificare ed estrarre se esiste un destinatario con età maggiore di 60 anni in tutte le poste.
+        System.out.println("Voglio verificare ed estrarre se esiste un destinatario con età maggiore di 60 anni in tutte le poste\n");
+        Destinatario esisteUnDestinatarioConEtaMaggioreDi60 = destinatariMock.stream()
+                .filter(destinatario -> destinatario.getEta() > 60).findAny().orElse(null);
+        //utilizzo Optional.ofNullable per evitare NullPointerException
+        Optional.ofNullable(esisteUnDestinatarioConEtaMaggioreDi60).ifPresentOrElse
+                (d -> System.out.println("Esiste un destinatario con età maggiore di 60 anni: "
+                        + d.getNome() + " " + d.getCognome()),
+                        () -> System.out.println("Non esiste un destinatario con età maggiore di 60 anni"));
+
+        System.out.println("\n");
+
+        //10) Calcolare il numero di poste che abbiano clienti che non possiedono conti correnti
+        System.out.println("Voglio calcolare il numero di poste che abbiano clienti che non possiedono conti correnti\n");
+        long numeroPosteConClientiSenzaContoCorrente = postaDiPaeseMock.stream()
+                .filter(p -> p.getDestinatari().stream()
+                        .anyMatch(destinatario -> !destinatario.isPossessoreDiContoCorrente()))
+                .count();
+        System.out.println("Il numero di poste che hanno clienti che non possiedono conti correnti è: " + numeroPosteConClientiSenzaContoCorrente);
+
+        System.out.println("\n");
+
+        //11) Raggruppare in una java.util.Map le poste per numero dipendenti.
+        Map<Integer , List<PostaDiPaese>> posteRaggruppatePerNumeroDipendenti = postaDiPaeseMock.stream()
+                .collect(groupingBy(p -> p.getNumeroDipendenti()));
+        System.out.println("Raggruppamento delle poste per numero dipendenti:\n");
+        posteRaggruppatePerNumeroDipendenti.forEach((k, v) -> {
+            System.out.print("Numero dipendenti: " + k + " ");
+            v.forEach(p -> System.out.print("Posta: " + p.getDenominazione() + "\n"));
+        });
     }
 }
