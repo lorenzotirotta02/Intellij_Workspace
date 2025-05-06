@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface SocietaService {
 
-    void aggiungiSocieta(Societa societa) throws Exception;
+    void aggiungiSocieta(Societa societa);
     void modificaSocieta(Societa societa);
     void eliminaSocieta(Long id);
     Optional<Societa> trovaSocietaPerId(Long id);

@@ -14,6 +14,6 @@ public interface DipendenteService {
     void aggiornaDipendente(Dipendente dipendente);
     void rimuoviDipendente(Long id);
     Optional<Dipendente> trovaDipendentePerId(Long id);
-    void aggiungiProgetti(Dipendente dipendente, List<Progetto> progetto) throws Exception;
+    void aggiungiProgetti(Dipendente dipendente, List<Progetto> progetto);
     Dipendente trovaDipendentePerDataAssunzionePrimaDiDataFondazioneEDurataProgettoMaggioreDi(LocalDate dataFondazione, int durataInMesi);
 }

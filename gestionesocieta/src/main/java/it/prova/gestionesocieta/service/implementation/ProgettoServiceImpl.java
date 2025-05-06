@@ -45,7 +45,7 @@ public class ProgettoServiceImpl implements ProgettoService {
     }
     @Transactional
     @Override
-    public void aggiungiDipendentiAProgetto(Progetto progetto, List<Dipendente> dipendente) throws Exception {
+    public void aggiungiDipendentiAProgetto(Progetto progetto, List<Dipendente> dipendente) {
         if (progetto == null || dipendente == null || progetto.getId() == null) {
             throw new Exception("Progetto o Dipendente non possono essere nulli");
         }

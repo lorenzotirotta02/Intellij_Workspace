@@ -9,7 +9,6 @@ import it.prova.gestionesocieta.service.abstraction.SocietaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +23,7 @@ public class BatteriaTestService {
     @Autowired
     private DipendenteService dipendenteService;
 
-    public void testInserisciNuovoSocieta() throws Exception {
+    public void testInserisciNuovoSocieta(){
         System.out.println("testInserisciNuovoSocieta in esecuzione...");
 
         Societa societaDaInserire = new Societa("Societa Test", "Via Roma", LocalDate.of(1990, 3, 20), LocalDate.of(2030, 4, 15));
@@ -36,7 +35,7 @@ public class BatteriaTestService {
         System.out.println("testInserisciNuovoSocieta........OK");
     }
 
-    public void testInserisciNuovoDipendente() throws Exception {
+    public void testInserisciNuovoDipendente(){
         System.out.println("testInserisciNuovoDipendente in esecuzione...");
 
         Optional<Societa> societa = societaService.trovaSocietaPerId(1L);
@@ -51,7 +50,7 @@ public class BatteriaTestService {
         System.out.println("testInserisciNuovoDipendente........OK");
     }
 
-    public void testRimozioneSocietà() throws Exception {
+    public void testRimozioneSocietà(){
         System.out.println("testRimozioneSocietà in esecuzione...");
         Optional<Societa> societa = societaService.trovaSocietaPerId(1L);
 
@@ -63,7 +62,7 @@ public class BatteriaTestService {
         System.out.println("testRimozioneSocietà........OK");
     }
 
-    public void testInserimentoProgetto() throws Exception {
+    public void testInserimentoProgetto(){
         System.out.println("testInserimentoProgetto in esecuzione...");
 
 
@@ -76,7 +75,7 @@ public class BatteriaTestService {
         System.out.println("testInserimentoProgetto........OK");
     }
 
-    public void testAggiuntaDipendenteAProgetti() throws Exception {
+    public void testAggiuntaDipendenteAProgetti(){
         System.out.println("testAggiuntaDipendenteAProgetto in esecuzione...");
 
         Optional<Societa> societa = societaService.trovaSocietaPerId(2L);
@@ -99,7 +98,7 @@ public class BatteriaTestService {
         }
     }
 
-    public void testAggiuntaDipendentiAProgetto() throws Exception {
+    public void testAggiuntaDipendentiAProgetto(){
         System.out.println("testAggiuntaDipendentiAProgetto in esecuzione...");
 
         Optional<Societa> societa = societaService.trovaSocietaPerId(2L);
@@ -127,7 +126,7 @@ public class BatteriaTestService {
 
     }
 
-    public void testTrovaClientiPerSocietaId() throws Exception {
+    public void testTrovaClientiPerSocietaId(){
         System.out.println("testTrovaClientiPerSocietaId in esecuzione...");
 
         Optional<Societa> societa1 = societaService.trovaSocietaPerId(2L);
@@ -143,7 +142,7 @@ public class BatteriaTestService {
         }
     }
 
-    public void testTrovaTuttiINomeSocietaConProgettiDurataMaggioreDiUnAnno() throws Exception {
+    public void testTrovaTuttiINomeSocietaConProgettiDurataMaggioreDiUnAnno(){
         System.out.println("testTrovaTuttiINomeSocietaConProgettiDurataMaggioreDiUnAnnoById in esecuzione...");
 
         Optional<Societa> societa = societaService.trovaSocietaPerId(2L);
@@ -177,7 +176,7 @@ public class BatteriaTestService {
 
         }
     }
-    public void testTrovaTuttiIDipendentiConDataAssunzionePrimaDiDataFondazione() throws Exception{
+    public void testTrovaTuttiIDipendentiConDataAssunzionePrimaDiDataFondazione(){
         System.out.println("testTrovaTuttiIDipendentiConDataAssunzionePrimaDiDataFondazione in esecuzione...");
 
         Societa societa = new Societa("Societa Test456", "Via Roma", LocalDate.of(2540, 3, 20), LocalDate.of(2030, 4, 15));
@@ -203,7 +202,7 @@ public class BatteriaTestService {
             throw new RuntimeException("testTrovaTuttiIDipendentiConDataAssunzionePrimaDiDataFondazione...failed: oggetto non trovato");
         }
     }
-    public void testTrovaTuttiIProgettiConRedditoMaggioreDi() throws Exception{
+    public void testTrovaTuttiIProgettiConRedditoMaggioreDi(){
         System.out.println("testTrovaTuttiIDipendentiConRedditoMaggioreDi in esecuzione...");
 
         List<Progetto> progetti = progettoService.trovaTuttiIProgettiConRedditoAnnualeLordoMaggioreDi(35000);
@@ -217,7 +216,7 @@ public class BatteriaTestService {
             System.out.println("testTrovaTuttiIDipendentiConRedditoMaggioreDi........OK");
         }
     }
-    public void testTrovaTuttiProgettiConDipendentiDiSocietaChiusa() throws Exception{
+    public void testTrovaTuttiProgettiConDipendentiDiSocietaChiusa(){
         System.out.println("testTrovaTuttiProgettiConDipendentiDiSocietaChiusa in esecuzione...");
 
         List<Progetto> progettos = progettoService.trovaTuttiIProgettiConDipendentiDiSocietaChiusa();
@@ -234,7 +233,7 @@ public class BatteriaTestService {
             throw new RuntimeException("testTrovaTuttiProgettiConDipendentiDiSocietaChiusa...failed: oggetto non trovato");
         }
     }
-    public void testTrovaDipendenteConDataAssunzionePrimaDiDataFondazioneEDurataProgettoMaggioreDi() throws Exception{
+    public void testTrovaDipendenteConDataAssunzionePrimaDiDataFondazioneEDurataProgettoMaggioreDi(){
         System.out.println("testTrovaDipendenteConDataAssunzionePrimaDiDataFondazioneEDurataProgettoMaggioreDi in esecuzione...");
 
         Optional<Societa> societa = societaService.trovaSocietaPerId(4L);

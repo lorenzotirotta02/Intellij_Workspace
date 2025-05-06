@@ -31,6 +31,6 @@ public class GestionesocietaApplication implements CommandLineRunner {
 		//batteriaDiTestService.testTrovaTuttiIDipendentiConDataAssunzionePrimaDiDataFondazione();
 		//batteriaDiTestService.testTrovaTuttiIProgettiConRedditoMaggioreDi();
 		//batteriaDiTestService.testTrovaTuttiProgettiConDipendentiDiSocietaChiusa();
-		batteriaDiTestService.testTrovaDipendenteConDataAssunzionePrimaDiDataFondazioneEDurataProgettoMaggioreDi();
+		//batteriaDiTestService.testTrovaDipendenteConDataAssunzionePrimaDiDataFondazioneEDurataProgettoMaggioreDi();
 	}
 }

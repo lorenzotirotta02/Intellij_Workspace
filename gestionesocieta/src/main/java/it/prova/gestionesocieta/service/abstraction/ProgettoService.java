@@ -12,7 +12,7 @@ public interface ProgettoService {
     void aggiornaProgetto(Progetto progettoInstance);
     void rimuoviProgetto(Long idProgetto);
     Optional<Progetto> caricaSingoloProgetto(Long idProgetto);
-    void aggiungiDipendentiAProgetto(Progetto progetto, List<Dipendente> dipendente) throws Exception;
+    void aggiungiDipendentiAProgetto(Progetto progetto, List<Dipendente> dipendente);
     List<Progetto> trovaTuttiIProgettiConRedditoAnnualeLordoMaggioreDi(int redditoAnnuoLordo);
     List<Progetto> trovaTuttiIProgettiConDipendentiDiSocietaChiusa();
 
