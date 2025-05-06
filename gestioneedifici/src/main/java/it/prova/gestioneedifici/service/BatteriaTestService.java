@@ -7,9 +7,11 @@ import it.prova.gestioneedifici.service.abstraction.InquilinoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLOutput;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class BatteriaTestService {
@@ -37,20 +39,28 @@ public class BatteriaTestService {
 
 //        List<Inquilino> listaFinta = new ArrayList<>();
 //        for (int i = 0; i < 80; i++) {
-//            listaFinta.add(new Inquilino()); UTILIZZATO PER TESTARE L'EXCEPTION PIANIEDIFICIOEXCEPTION
+//            listaFinta.add(new Inquilino()); //UTILIZZATO PER TESTARE L'EXCEPTION PIANIEDIFICIOEXCEPTION
 //        }
 //        edificio.setInquilini(listaFinta);
 
         edificioService.inserimentoEdificio(edificio);
 
         Inquilino inquilino = new Inquilino("Mario", "Rossi", LocalDate.of(2000, 1, 1), 500L);
-        inquilino.setEdificio(edificio);
-        inquilinoService.inserisciInquilino(inquilino);
+        inquilinoService.inserisciInquilino(inquilino , edificio.getId());
 
         if (inquilino.getId() != null && inquilino.getId() > 0) {
             System.out.println("Inquilino inserito con successo: " + inquilino);
         } else {
             throw new RuntimeException("Errore durante l'inserimento dell'inquilino.");
         }
+    }
+    public void testOttieniMappaInversa(){
+        System.out.println("################ START   #################");
+
+        Map<Edificio, Integer> result = edificioService.ottieniMappaInversa(3L);
+        for (Edificio k : result.keySet()) {
+            System.out.println("Edificio: " + k + ", Numero di inquilini: " + result.get(k));
+        }
+
     }
 }

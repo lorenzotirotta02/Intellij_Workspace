@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.Map;
 
 @Service
 @Transactional(readOnly = true)
@@ -21,15 +22,25 @@ public class EdificioServiceImpl implements EdificioService {
     @Transactional
     @Override
     public void inserimentoEdificio(Edificio edificio) {
-        if(edificio == null ){
+        if (edificio == null) {
             throw new RuntimeException("Edificio non puo' essere null");
         }
-        if (edificio.getDataCostruzione().isBefore(LocalDate.now())){
+        if (edificio.getDataCostruzione().isBefore(LocalDate.now())) {
             throw new EdificioConDataCostruzionePrecedenteADataInserimentoException("L'edificio non può avere una data di costruzione precedente alla data di inserimento");
         }
-        if(edificio.getNumeroPiani() < 4){
+        if (edificio.getNumeroPiani() < 4) {
             throw new PianiEdificioException("L'edificio deve avere almeno 4 piani");
         }
         edificioRepository.save(edificio);
+    }
+
+    @Override
+    public Map<Edificio, Integer> ottieniMappaInversa(Long id) {
+        Map<Edificio, Integer> result = edificioRepository.ottieniMappaInversa(id);
+
+        if (result.isEmpty()) {
+            throw new RuntimeException("La mappa è vuota");
+        }
+        return result;
     }
 }

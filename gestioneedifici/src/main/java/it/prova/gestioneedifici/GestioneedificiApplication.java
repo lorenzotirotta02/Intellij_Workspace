@@ -19,6 +19,7 @@ public class GestioneedificiApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		//batteriaDiTestService.testInserimentoEdificio();
-		batteriaDiTestService.testInserimentoInquilino();
+    	batteriaDiTestService.testInserimentoInquilino();
+	//	batteriaDiTestService.testOttieniMappaInversa();
 	}
 }
