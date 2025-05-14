@@ -16,6 +16,6 @@ public interface TrattaService {
 
     List<Tratta> listAllElements(boolean eager);
 
-    List<Tratta> chiudiTratte(StatoTratta statoTratta);
+    List<Tratta> chiudiTratte();
 
 }

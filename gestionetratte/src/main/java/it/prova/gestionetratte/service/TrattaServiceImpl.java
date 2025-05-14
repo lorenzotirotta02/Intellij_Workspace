@@ -53,7 +53,7 @@ public class TrattaServiceImpl implements TrattaService{
 
 
     @Override
-    public List<Tratta> chiudiTratte(StatoTratta statoTratta) {
+    public List<Tratta> chiudiTratte() {
         List<Tratta> tratteAttive = trattaRepository.findTratteDaConcludere(StatoTratta.ATTIVA);
 
         for (Tratta tratta : tratteAttive) {

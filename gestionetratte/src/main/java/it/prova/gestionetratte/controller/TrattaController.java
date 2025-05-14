@@ -52,4 +52,8 @@ public class TrattaController {
     public void delete(@PathVariable(required = true) Long id) {
         trattaService.rimuovi(id);
     }
+    @PutMapping("/chiudiTratte")
+    public List<TrattaDTO> chiudiTratte() {
+        return TrattaDTO.createTrattaDTOListFromModelList(trattaService.chiudiTratte(), true);
+    }
 }
