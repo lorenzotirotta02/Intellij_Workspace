@@ -16,4 +16,12 @@ public interface UtenteRepository extends JpaRepository<Utente, Long> {
     @Query("select u.tavolo from Utente u where u.esperienzaAccumulata >= u.tavolo.esperienzaMin and u.id = ?1")
     List<Tavolo> findTavoliCompatibilePerUtente(Long idUtente);
 
+    @Query("select u from Utente u where u.username = ?1")
+    Optional<Utente> findByUsername(String username);
+
+    @Query("select count (u) from Utente u where u.tavolo = ?1")
+    Long countAllGiocatoriByTavoloId(Long id);
+
+
+
 }
