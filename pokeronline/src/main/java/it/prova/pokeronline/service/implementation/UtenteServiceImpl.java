@@ -181,6 +181,7 @@ public class UtenteServiceImpl implements UtenteService {
         if(utente.getStato().equals(Stato.CREATO)){
             utente.setStato(Stato.ATTIVO);
         }
+        utente.setTavolo(tavolo);
 
         utenteRepository.save(utente);
         return messaggio;
