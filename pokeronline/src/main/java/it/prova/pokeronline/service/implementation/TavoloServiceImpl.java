@@ -53,6 +53,7 @@ public class TavoloServiceImpl implements TavoloService {
     }
 
     @Override
+    @Transactional
     public void aggiornaTavolo(Tavolo tavolo) {
         boolean tavoloModificabile = checkIfTavoloModificabileOEliminabile(tavolo.getId());
         if (!tavoloModificabile) {
@@ -62,6 +63,7 @@ public class TavoloServiceImpl implements TavoloService {
     }
 
     @Override
+    @Transactional
     public void disabilitaTavolo(Long idTavolo) {
 
         boolean tavoloEliminabile = checkIfTavoloModificabileOEliminabile(idTavolo);
@@ -74,6 +76,7 @@ public class TavoloServiceImpl implements TavoloService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Tavolo cercaPerId(Long idTavolo) {
         Utente utente = getUtenteAutenticatoConRuoloAdminOSpecialPlayer();
 
@@ -86,6 +89,7 @@ public class TavoloServiceImpl implements TavoloService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Tavolo> listAll() {
         Utente utente = getUtenteAutenticatoConRuoloAdminOSpecialPlayer();
 

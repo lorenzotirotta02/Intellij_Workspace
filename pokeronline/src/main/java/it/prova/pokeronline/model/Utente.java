@@ -53,7 +53,7 @@ public class Utente {
         this.dataRegistrazione = dataRegistrazione;
         this.esperienzaAccumulata = esperienzaAccumulata;
         this.creditoAccumulato = creditoAccumulato;
-        this.stato = stato;
+        this.stato = Stato.CREATO;
         this.ruolo = ruolo;
     }
 
@@ -136,6 +136,15 @@ public class Utente {
     public void setStato(Stato stato) {
         this.stato = stato;
     }
+
+    public boolean isDisabilitato() {
+        return this.stato != null && this.stato.equals(Stato.DISABILITATO);
+    }
+
+    public boolean isAttivo() {
+        return this.stato != null && this.stato.equals(Stato.ATTIVO) || this.stato.equals(Stato.CREATO);
+    }
+
     public Tavolo getTavolo() {
         return tavolo;
     }
