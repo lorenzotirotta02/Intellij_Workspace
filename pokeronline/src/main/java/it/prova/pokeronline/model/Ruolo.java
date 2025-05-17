@@ -10,9 +10,9 @@ import java.util.Set;
 public class Ruolo {
 
 
-    public static final String ROLE_ADMIN = "ROLE_ADMIN";
-    public static final String ROLE_NORMAL_PLAYER = "ROLE_NORMAL_PLAYER";
-    public static final String ROLE_SPECIAL_PLAYER = "ROLE_SPECIAL_PLAYER";
+    public static final String ADMIN = "ADMIN";
+    public static final String NPLAYER = "PLAYER";
+    public static final String SPECIAL_PLAYER = "SPECIAL_PLAYER";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

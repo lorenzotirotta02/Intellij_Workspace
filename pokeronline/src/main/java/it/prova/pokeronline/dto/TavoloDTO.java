@@ -80,6 +80,9 @@ public class TavoloDTO {
     //        this.denominazione = denominazione;
     //        this.cifraMinima = cifraMinima;
     //        this.esperienzaMin = esperienzaMin;
+    public Tavolo buildTavoloModel() {
+        return new Tavolo(this.id, this.esperienzaMin, this.cifraMinima, this.denominazione, this.dataCreazione);
+    }
     public static TavoloDTO buildTavoloDTOFromModel(Tavolo tavoloModel) {
         return new TavoloDTO(tavoloModel.getId(),tavoloModel.getDataCreazione(),
                 tavoloModel.getDenominazione(), tavoloModel.getCifraMinima(), tavoloModel.getEsperienzaMin());

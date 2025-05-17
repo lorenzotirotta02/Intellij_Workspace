@@ -1,23 +1,30 @@
 package it.prova.pokeronline.service.implementation;
 
 import it.prova.pokeronline.exception.*;
+import it.prova.pokeronline.model.Ruolo;
 import it.prova.pokeronline.model.Stato;
 import it.prova.pokeronline.model.Tavolo;
 import it.prova.pokeronline.model.Utente;
+import it.prova.pokeronline.repository.RuoloRepository;
 import it.prova.pokeronline.repository.TavoloRepository;
 import it.prova.pokeronline.repository.UtenteRepository;
-import it.prova.pokeronline.service.abstraction.TavoloService;
 import it.prova.pokeronline.service.abstraction.UtenteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
 public class UtenteServiceImpl implements UtenteService {
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     private UtenteRepository utenteRepository;
@@ -25,25 +32,35 @@ public class UtenteServiceImpl implements UtenteService {
     @Autowired
     private TavoloRepository tavoloRepository;
 
+    @Autowired
+    private RuoloRepository ruoloRepository;
+
     @Override
-    public void inserisciUtente(Utente utente) {
+    public Utente inserisciUtente(Utente utente) {
         if(utente == null) {
-            throw new IllegalArgumentException("ID utente non può essere nullo.");
+            throw new UtenteNotNullException("L'utente non può essere nullo.");
         }
-        utenteRepository.save(utente);
+        //Assegno all'utente degli attributi iniziali che voglio che abbia appena si registra
+        utente.setStato(Stato.CREATO);
+        utente.setEsperienzaAccumulata(0);
+        Ruolo ruolo = ruoloRepository.findRuoloByCodice("ADMIN");
+        utente.setRuolo(ruolo);
+        utente.setDataRegistrazione(LocalDate.now());
+        utente.setPassword(passwordEncoder.encode(utente.getPassword()));
+        return utenteRepository.save(utente);
     }
 
     @Override
-    public void aggiornaUtente(Utente utente) {
+    public Utente aggiornaUtente(Utente utente) {
         if(utente == null) {
             throw new IllegalArgumentException("L'utente non può essere nullo.");
         }
         Utente utenteLoggato = recuperaUtenteLoggato();
 
         if(utenteLoggato.getRuolo().getCodice().equals("ADMIN") || utenteLoggato.getId().equals(utente.getId())) {
-            utenteRepository.save(utente);
+            return utenteRepository.save(utente);
         }else{
-            throw new UtenteNonAutorizzatoException("Non sei autorizzato a modificare questo utente.");
+            throw new UtenteNonAutorizzatoException("Utente non autorizzato a modificare questo utente.");
         }
     }
 
@@ -69,7 +86,7 @@ public class UtenteServiceImpl implements UtenteService {
             throw new IllegalArgumentException("ID utente non può essere nullo.");
         }
         Utente utente = recuperaUtenteLoggato();
-        if(utente.getRuolo().getCodice().equals("ADMIN")){
+        if(utente.getRuolo().getCodice().equals("ADMIN") || utente.getId().equals(idUtente)) {
             return utenteRepository.findById(idUtente).orElseThrow(() ->
                     new UtenteNonTrovatoException("Nessun utente trovato con ID: " + idUtente));
         }
@@ -93,10 +110,14 @@ public class UtenteServiceImpl implements UtenteService {
         if(utente == null) {
             throw new UtenteNonAutorizzatoException("Effettua il login per visualizzare il tavolo.");
         }
-        if(utente.getTavolo() == null) {
+
+        Tavolo tavolo = utenteRepository.findLastGameByUtenteId(utente.getId()).get();
+
+        if(tavolo == null) {
             throw new UtenteNonAutorizzatoException("Non appartieni a nessun tavolo.");
         }
-        return utenteRepository.findLastGameByUtenteId(utente.getId()).get();
+        return tavolo;
+
     }
 
     @Override
@@ -126,7 +147,7 @@ public class UtenteServiceImpl implements UtenteService {
     }
 
     @Override
-    public void giocaPartita(Long idTavolo) {
+    public String giocaPartita(Long idTavolo) {
         Utente utente = recuperaUtenteLoggato();
 
         Tavolo tavolo = tavoloRepository.findById(idTavolo).orElseThrow(() ->
@@ -146,14 +167,15 @@ public class UtenteServiceImpl implements UtenteService {
 
         // Simulazione partita (50% di possibilità)
         boolean vinto = Math.random() < 0.5;
+        String messaggio;
 
         if (vinto) {
             utente.setEsperienzaAccumulata(utente.getEsperienzaAccumulata() + 50);
             utente.setCreditoAccumulato(utente.getCreditoAccumulato() + 100);
-            System.out.println("Hai vinto! +50 XP, +100 credito.");
+            messaggio = "Hai vinto! +50 XP, +100 credito.";
         } else {
             utente.setCreditoAccumulato(utente.getCreditoAccumulato() - tavolo.getCifraMinima());
-            System.out.println("Hai perso! -" + tavolo.getCifraMinima() + " credito.");
+            messaggio = "Hai perso! -" + tavolo.getCifraMinima() + " credito.";
         }
 
         if(utente.getStato().equals(Stato.CREATO)){
@@ -161,18 +183,29 @@ public class UtenteServiceImpl implements UtenteService {
         }
 
         utenteRepository.save(utente);
+        return messaggio;
+    }
+
+    @Override
+    public Utente findByUsername(String username) {
+        if(username == null) {
+            throw new IllegalArgumentException("Username utente non può essere nullo.");
+        }
+        return utenteRepository.findByUsername(username).orElseThrow(() -> new UtenteNonTrovatoException("Utente non esistente!"));
     }
 
 
-
-    private Utente recuperaUtenteLoggato(){
+    private Utente recuperaUtenteLoggato() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication != null && authentication.isAuthenticated()) {
-            String username = authentication.getName();
-            return utenteRepository.findByUsername(username)
-                    .orElseThrow(() -> new UtenteNonTrovatoException("Utente non trovato"));
+
+        if (authentication == null || !authentication.isAuthenticated() ||
+                authentication instanceof AnonymousAuthenticationToken) {
+            throw new UtenteNonTrovatoException("Non sei autenticato");
         }
-        throw new UtenteNonTrovatoException("Utente non trovato");
+
+        String username = authentication.getName();
+        return utenteRepository.findByUsername(username)
+                .orElseThrow(() -> new UtenteNonTrovatoException("Utente non esistente"));
     }
 
 }

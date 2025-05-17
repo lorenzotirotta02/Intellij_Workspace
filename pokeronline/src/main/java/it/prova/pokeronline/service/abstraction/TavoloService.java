@@ -5,9 +5,9 @@ import java.util.List;
 
 public interface TavoloService {
 
-    public void creaTavolo(Tavolo tavolo);
+    public Tavolo creaTavolo(Tavolo tavolo);
 
-    public void aggiornaTavolo(Tavolo tavolo);
+    public Tavolo aggiornaTavolo(Tavolo tavolo);
 
     public void disabilitaTavolo(Long idTavolo);
 

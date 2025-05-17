@@ -1,5 +1,8 @@
 package it.prova.pokeronline.dto.securitydto;
 
+
+import it.prova.pokeronline.model.Stato;
+
 public class UtenteAuthDTO {
 
     private String username;
@@ -20,4 +23,5 @@ public class UtenteAuthDTO {
     public void setPassword(String password) {
         this.password = password;
     }
+
 }

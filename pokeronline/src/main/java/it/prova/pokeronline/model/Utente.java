@@ -2,6 +2,7 @@ package it.prova.pokeronline.model;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 
 import java.time.LocalDate;
 
@@ -39,7 +40,7 @@ public class Utente {
     private Ruolo ruolo;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "tavolo_id", nullable = false)
+    @JoinColumn(name = "tavolo_id")
     private Tavolo tavolo;
 
     public Utente() {
@@ -53,8 +54,17 @@ public class Utente {
         this.dataRegistrazione = dataRegistrazione;
         this.esperienzaAccumulata = esperienzaAccumulata;
         this.creditoAccumulato = creditoAccumulato;
-        this.stato = Stato.CREATO;
+        this.stato = stato;
         this.ruolo = ruolo;
+    }
+    public Utente(Long id, String nome, String cognome, String username, String password,
+                  Double creditoAccumulato) {
+        this.id = id;
+        this.nome = nome;
+        this.cognome = cognome;
+        this.username = username;
+        this.password = password;
+        this.creditoAccumulato = creditoAccumulato;
     }
 
     public Long getId() {

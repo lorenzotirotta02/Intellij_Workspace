@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface UtenteService {
 
-    void inserisciUtente(Utente utente);
+    Utente inserisciUtente(Utente utente);
 
-    void aggiornaUtente(Utente utente);
+    Utente aggiornaUtente(Utente utente);
 
     void disabilitaUtente(Long idUtente);
 
@@ -23,7 +23,9 @@ public interface UtenteService {
 
     List<Tavolo> trovaTavoloCompatibileConUtente();
 
-    void giocaPartita(Long idTavolo);
+    String giocaPartita(Long idTavolo);
+
+    Utente findByUsername(String username);
 
 
 }

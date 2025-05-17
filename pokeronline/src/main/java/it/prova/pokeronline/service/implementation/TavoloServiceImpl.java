@@ -4,21 +4,18 @@ import it.prova.pokeronline.exception.TavoloNonTrovatoException;
 import it.prova.pokeronline.exception.TavoloNonVuotoException;
 import it.prova.pokeronline.exception.UtenteNonAutorizzatoException;
 import it.prova.pokeronline.exception.UtenteNonTrovatoException;
-import it.prova.pokeronline.model.Ruolo;
 import it.prova.pokeronline.model.Tavolo;
 import it.prova.pokeronline.model.Utente;
 import it.prova.pokeronline.repository.TavoloRepository;
 import it.prova.pokeronline.repository.UtenteRepository;
 import it.prova.pokeronline.service.abstraction.TavoloService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Objects;
 
 @Service
 public class TavoloServiceImpl implements TavoloService {
@@ -31,7 +28,7 @@ public class TavoloServiceImpl implements TavoloService {
 
     @Override
     @Transactional
-    public void creaTavolo(Tavolo tavolo) {
+    public Tavolo creaTavolo(Tavolo tavolo) {
 
         //Questa prima parte, che si occupa di effettuare i controlli,
         // per evitare duplicazione inutile di codice all'interno dei vari metodi,
@@ -49,17 +46,17 @@ public class TavoloServiceImpl implements TavoloService {
 
         Utente utente = getUtenteAutenticatoConRuoloAdminOSpecialPlayer();
         tavolo.setUtenteCreazione(utente);
-        tavoloRepository.save(tavolo);
+        return tavoloRepository.save(tavolo);
     }
 
     @Override
     @Transactional
-    public void aggiornaTavolo(Tavolo tavolo) {
+    public Tavolo aggiornaTavolo(Tavolo tavolo) {
         boolean tavoloModificabile = checkIfTavoloModificabileOEliminabile(tavolo.getId());
         if (!tavoloModificabile) {
             throw new TavoloNonVuotoException("Il tavolo non può essere modificato perchè ha giocatori al suo interno!");
         }
-        tavoloRepository.save(tavolo);
+        return tavoloRepository.save(tavolo);
     }
 
     @Override
