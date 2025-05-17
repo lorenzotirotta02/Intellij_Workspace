@@ -48,8 +48,8 @@ public class SecurityConfig  {
                         .requestMatchers("/api/auth/login").permitAll()
 
                         // Role-based endpoints
-                        .requestMatchers("/api/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/api/tavolo/**").hasAnyRole("ADMIN", "SPECIAL_PLAYER")
+                        .requestMatchers("/api/admin/**").hasAuthority("ADMIN")
+                        .requestMatchers("/api/tavolo/**").hasAnyAuthority("ADMIN", "SPECIAL_PLAYER")
                         .requestMatchers("/**").permitAll()
 
 

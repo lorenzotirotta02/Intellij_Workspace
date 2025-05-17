@@ -43,7 +43,7 @@ public class UtenteServiceImpl implements UtenteService {
         //Assegno all'utente degli attributi iniziali che voglio che abbia appena si registra
         utente.setStato(Stato.CREATO);
         utente.setEsperienzaAccumulata(0);
-        Ruolo ruolo = ruoloRepository.findRuoloByCodice("ADMIN");
+        Ruolo ruolo = ruoloRepository.findRuoloByCodice("PLAYER");
         utente.setRuolo(ruolo);
         utente.setDataRegistrazione(LocalDate.now());
         utente.setPassword(passwordEncoder.encode(utente.getPassword()));
