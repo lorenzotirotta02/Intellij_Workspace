@@ -1,5 +1,7 @@
 package it.prova.pokeronline.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
@@ -21,6 +23,7 @@ public class Ruolo {
     private String codice;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "ruolo")
+    @JsonIgnoreProperties({"ruolo", "tavolo"})
     private Set<Utente> utenti = new HashSet<Utente>(0);
 
     public Ruolo() {
@@ -48,5 +51,14 @@ public class Ruolo {
 
     public void setCodice(String codice) {
         this.codice = codice;
+    }
+
+    @Override
+    public String toString() {
+        return "Ruolo{" +
+                "id=" + id +
+                ", descrizione='" + descrizione + '\'' +
+                ", codice='" + codice + '\'' +
+                '}';
     }
 }

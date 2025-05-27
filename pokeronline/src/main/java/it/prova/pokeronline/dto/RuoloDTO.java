@@ -47,9 +47,7 @@ public class RuoloDTO {
     }
 
     public static List<RuoloDTO> createRuoloDTOListFromModelSet(Set<Ruolo> modelListInput) {
-        return modelListInput.stream().map(ruoloEntity -> {
-            return RuoloDTO.buildRuoloDTOFromModel(ruoloEntity);
-        }).collect(Collectors.toList());
+        return modelListInput.stream().map(RuoloDTO::buildRuoloDTOFromModel).collect(Collectors.toList());
     }
 
     public static List<RuoloDTO> createRuoloDTOListFromModelList(List<Ruolo> modelListInput) {

@@ -22,6 +22,10 @@ public interface UtenteRepository extends JpaRepository<Utente, Long> {
     @Query("select count (u) from Utente u where u.tavolo = ?1")
     Long countAllGiocatoriByTavoloId(Long id);
 
+    @Query("select u from Utente u join fetch u.ruolo where u.id = ?1")
+    Utente findByIdWithRuolo(Long id);
+
+
 
 
 }

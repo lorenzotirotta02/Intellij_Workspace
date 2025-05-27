@@ -1,13 +1,17 @@
 package it.prova.pokeronline.controller;
 
+import it.prova.pokeronline.dto.UtenteDTO;
 import it.prova.pokeronline.dto.securitydto.UtenteAuthDTO;
 import it.prova.pokeronline.dto.securitydto.UtenteInfoJWTResponseDTO;
 import it.prova.pokeronline.exception.AccessoNegatoException;
+import it.prova.pokeronline.exception.IdNotNullForInsertException;
 import it.prova.pokeronline.model.Ruolo;
 import it.prova.pokeronline.model.Utente;
 import it.prova.pokeronline.security.JWTUtil;
 import it.prova.pokeronline.service.abstraction.UtenteService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -34,6 +38,17 @@ public class AuthController {
         this.authManager = authManager;
     }
 
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public UtenteDTO register(@Valid @RequestBody UtenteDTO utenteInput) {
+        if (utenteInput.getId() != null)
+            throw new IdNotNullForInsertException("Non è ammesso fornire un id per la creazione");
+
+
+        Utente utenteInserito = utenteService.inserisciUtente(utenteInput.buildUtenteModelInsert());
+        return UtenteDTO.buildUtenteDTOFromModelInsert(utenteInserito);
+    }
+
     @PostMapping("/login")
     public Map<String, Object> loginHandler(@RequestBody UtenteAuthDTO body) {
         try {
@@ -53,7 +68,8 @@ public class AuthController {
             authManager.authenticate(authInputToken);
 
             // Se siamo qui posso tranquillamente generare il JWT Token
-            String token = jwtUtil.generateToken(body.getUsername());
+            String token = jwtUtil.generateToken(body.getUsername(), utente.getRuolo()
+            );
 
             // Respond with the JWT
             return Collections.singletonMap("jwt-token", token);

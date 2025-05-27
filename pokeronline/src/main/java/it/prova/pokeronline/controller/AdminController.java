@@ -62,16 +62,17 @@ public class AdminController {
         if (utente == null)
             throw new UtenteNonAutorizzatoException("Utente non trovato con id: " + id);
 
-        utenteInput.setId(id);
         Utente utenteAggiornato = utenteService.aggiornaUtente(utenteInput.buildUtenteModel());
         return UtenteDTO.buildUtenteDTOFromModel(utenteAggiornato);
     }
     @GetMapping("/{id}")
-    public UtenteDTO findById(@PathVariable(value = "id", required = true) long id) {
+    public UtenteDTO findById(@PathVariable(value = "id", required = true) Long id) {
         Utente utente = utenteService.caricaSingoloUtente(id);
 
         if (utente == null)
             throw new UtenteNonAutorizzatoException("Utente non trovato con id: " + id);
+        System.out.println(utente.getRuolo()); // o .getCodice()
+
 
         return UtenteDTO.buildUtenteDTOFromModel(utente);
     }

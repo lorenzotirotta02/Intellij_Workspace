@@ -58,7 +58,16 @@ public class UtenteServiceImpl implements UtenteService {
         Utente utenteLoggato = recuperaUtenteLoggato();
 
         if(utenteLoggato.getRuolo().getCodice().equals("ADMIN") || utenteLoggato.getId().equals(utente.getId())) {
-            return utenteRepository.save(utente);
+            Utente utenteAggiornato = new Utente();
+            utenteAggiornato.setId(utente.getId());
+            utenteAggiornato.setNome(utente.getNome());
+            utenteAggiornato.setCognome(utente.getCognome());
+            utenteAggiornato.setUsername(utente.getUsername());
+            utenteAggiornato.setRuolo(utente.getRuolo());
+            utenteAggiornato.setCreditoAccumulato(utente.getCreditoAccumulato());
+            utenteAggiornato.setEsperienzaAccumulata(utente.getEsperienzaAccumulata());
+            utenteAggiornato.setStato(utente.getStato());
+            return utenteRepository.save(utenteAggiornato);
         }else{
             throw new UtenteNonAutorizzatoException("Utente non autorizzato a modificare questo utente.");
         }
@@ -74,6 +83,7 @@ public class UtenteServiceImpl implements UtenteService {
             Utente utenteDaDisabilitare = utenteRepository.findById(idUtente).orElseThrow(() ->
                     new UtenteNonTrovatoException("Nessun utente trovato con ID: " + idUtente));
             utenteDaDisabilitare.setStato(Stato.DISABILITATO);
+            utenteRepository.save(utenteDaDisabilitare);
         }else{
             throw new UtenteNonAutorizzatoException("Non sei autorizzato a disabilitare questo utente.");
         }
@@ -87,8 +97,7 @@ public class UtenteServiceImpl implements UtenteService {
         }
         Utente utente = recuperaUtenteLoggato();
         if(utente.getRuolo().getCodice().equals("ADMIN") || utente.getId().equals(idUtente)) {
-            return utenteRepository.findById(idUtente).orElseThrow(() ->
-                    new UtenteNonTrovatoException("Nessun utente trovato con ID: " + idUtente));
+            return utenteRepository.findByIdWithRuolo(idUtente);
         }
         throw new UtenteNonAutorizzatoException("Utente non autorizzato a cercare questo utente.");
     }

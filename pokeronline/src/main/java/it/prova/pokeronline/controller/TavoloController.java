@@ -50,7 +50,6 @@ public class TavoloController {
         if (tavolo == null)
             throw new TavoloNonTrovatoException("Tavolo non trovato con id: " + id);
 
-        tavoloInput.setId(id);
         Tavolo registaAggiornato = tavoloService.aggiornaTavolo(tavoloInput.buildTavoloModel());
         return TavoloDTO.buildTavoloDTOFromModel(registaAggiornato);
     }

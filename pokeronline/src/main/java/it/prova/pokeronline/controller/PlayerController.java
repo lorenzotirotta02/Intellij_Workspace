@@ -33,16 +33,7 @@ public class PlayerController {
         this.utenteService = utenteService;
     }
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public UtenteDTO createPlayer(@Valid @RequestBody UtenteDTO utenteInput) {
-        if (utenteInput.getId() != null)
-            throw new IdNotNullForInsertException("Non è ammesso fornire un id per la creazione");
 
-
-        Utente utenteInserito = utenteService.inserisciUtente(utenteInput.buildUtenteModelInsert());
-        return UtenteDTO.buildUtenteDTOFromModelInsert(utenteInserito);
-    }
     @GetMapping("/{id}")
     public UtenteDTO findById(@PathVariable(value = "id", required = true) long id) {
         Utente utente = utenteService.caricaSingoloUtente(id);

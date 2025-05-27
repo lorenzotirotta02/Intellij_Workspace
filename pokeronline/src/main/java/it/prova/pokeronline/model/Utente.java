@@ -1,6 +1,7 @@
 package it.prova.pokeronline.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
@@ -37,6 +38,7 @@ public class Utente {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ruolo_id", nullable = false)
+    @JsonIgnoreProperties("utenti")
     private Ruolo ruolo;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -45,8 +47,21 @@ public class Utente {
 
     public Utente() {
     }
+
+    public Utente(Long id,String nome, String cognome, String username, Integer esperienzaAccumulata,
+                  Double creditoAccumulato, Stato stato, Ruolo ruolo) {
+        this.id = id;
+        this.nome = nome;
+        this.cognome = cognome;
+        this.username = username;
+        this.esperienzaAccumulata = esperienzaAccumulata;
+        this.creditoAccumulato = creditoAccumulato;
+        this.stato = stato;
+        this.ruolo = ruolo;
+    }
+
     public Utente(String nome, String cognome, String username, String password, LocalDate dataRegistrazione,
-             Integer esperienzaAccumulata, Double creditoAccumulato, Stato stato, Ruolo ruolo) {
+                  Integer esperienzaAccumulata, Double creditoAccumulato, Stato stato, Ruolo ruolo) {
         this.nome = nome;
         this.cognome = cognome;
         this.username = username;

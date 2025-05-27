@@ -5,6 +5,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import it.prova.pokeronline.model.Ruolo;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -24,12 +25,13 @@ public class JWTUtil {
     @Value("${jwt.expiration}")
     private Long jwtExpirationMs;
 
-    public String generateToken(String username) {
+    public String generateToken(String username, Ruolo ruolo) {
         Map<String, Object> claims = new HashMap<>();
-        return createToken(claims, username);
+        return createToken(claims, username, ruolo);
     }
 
-    private String createToken(Map<String, Object> claims, String username) {
+    private String createToken(Map<String, Object> claims, String username, Ruolo ruolo) {
+        claims.put("ruolo", ruolo.getCodice());
         return Jwts.builder()
                 .setClaims(claims)
                 .setSubject(username)
