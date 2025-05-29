@@ -45,11 +45,11 @@ public class TavoloController {
     }
     @PutMapping("/{id}")
     public TavoloDTO update(@Valid @RequestBody TavoloDTO tavoloInput, @PathVariable(required = true) Long id) {
-        Tavolo tavolo = tavoloService.cercaPerId(id);
 
-        if (tavolo == null)
-            throw new TavoloNonTrovatoException("Tavolo non trovato con id: " + id);
+        if (tavoloInput == null)
+            throw new TavoloNonTrovatoException("Tavolo non può essere null");
 
+        tavoloInput.setId(id);
         Tavolo registaAggiornato = tavoloService.aggiornaTavolo(tavoloInput.buildTavoloModel());
         return TavoloDTO.buildTavoloDTOFromModel(registaAggiornato);
     }

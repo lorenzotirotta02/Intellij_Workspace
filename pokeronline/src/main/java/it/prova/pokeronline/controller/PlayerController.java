@@ -33,13 +33,12 @@ public class PlayerController {
         this.utenteService = utenteService;
     }
 
-
-    @GetMapping("/{id}")
-    public UtenteDTO findById(@PathVariable(value = "id", required = true) long id) {
-        Utente utente = utenteService.caricaSingoloUtente(id);
+    @GetMapping("/{username}")
+    public UtenteDTO restituisciInformazioni(@PathVariable(value = "username", required = true) String username) {
+        Utente utente = utenteService.findByUsername(username);
 
         if (utente == null)
-            throw new IdNotNullForInsertException("Utente non trovato con id: " + id);
+            throw new IdNotNullForInsertException("Utente non trovato con username " + username);
 
         return UtenteDTO.buildUtenteDTOFromModel(utente);
     }

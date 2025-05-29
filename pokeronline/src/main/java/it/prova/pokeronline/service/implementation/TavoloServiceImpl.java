@@ -56,6 +56,16 @@ public class TavoloServiceImpl implements TavoloService {
         if (!tavoloModificabile) {
             throw new TavoloNonVuotoException("Il tavolo non può essere modificato perchè ha giocatori al suo interno!");
         }
+        Tavolo tavoloEsistente = tavoloRepository.findById(tavolo.getId())
+                .orElseThrow(() -> new TavoloNonTrovatoException("Tavolo non trovato"));
+
+        if (tavolo.getEsperienzaMin() != null) tavoloEsistente.setEsperienzaMin(tavolo.getEsperienzaMin());
+        if(tavolo.getCifraMinima() != null) tavoloEsistente.setCifraMinima(tavolo.getCifraMinima());
+        if(tavolo.getDenominazione() != null) tavoloEsistente.setDenominazione(tavolo.getDenominazione());
+        if(tavolo.getDataCreazione() != null) tavoloEsistente.setDataCreazione(tavolo.getDataCreazione());
+        if(tavolo.getUtenteCreazione() != null) tavoloEsistente.setUtenteCreazione(tavolo.getUtenteCreazione());
+
+
         return tavoloRepository.save(tavolo);
     }
 
@@ -88,14 +98,7 @@ public class TavoloServiceImpl implements TavoloService {
     @Override
     @Transactional(readOnly = true)
     public List<Tavolo> listAll() {
-        Utente utente = getUtenteAutenticatoConRuoloAdminOSpecialPlayer();
-
-        if(utente.getRuolo().getCodice().equals("ADMIN")){
-            return tavoloRepository.findAll();
-        }else if(utente.getRuolo().getCodice().equals("SPECIAL_PLAYER")){
-            return tavoloRepository.findAllByUtenteCreazioneId(utente.getId());
-        }
-        throw new UtenteNonAutorizzatoException("Non hai i permessi per visualizzare i tavoli");
+        return tavoloRepository.findAll();
     }
 
     private Utente getUtenteAutenticatoConRuoloAdminOSpecialPlayer() {
@@ -127,9 +130,10 @@ public class TavoloServiceImpl implements TavoloService {
         //Controllo a parte per vedere se il tavolo è stato creato dall'utente che sta provando
         //a disabilitarlo, rispetto al controllo di prima, qui è necessario fare un ulteriore controllo
         //poichè non voglio che un qualsiasi SPECIAL_PLAYER possa disabilitare un tavolo non suo
-        if(!(utente.getId().equals(tavolo.getUtenteCreazione().getId()))){
+        if(!(utente.getId().equals(tavolo.getUtenteCreazione().getId()) || utente.getRuolo().getCodice().equals("ADMIN"))){
             throw new UtenteNonAutorizzatoException("Non sei il creatore di questo tavolo");
         }
+
 
         //Controllo che il tavolo non abbia giocatori al suo interno
         //La query viene eseguita da utente, perchè è il tavolo a essere mappato lato utente con una colonna

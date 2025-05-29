@@ -36,7 +36,7 @@ public class Utente {
 
     private Stato stato;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ruolo_id", nullable = false)
     @JsonIgnoreProperties("utenti")
     private Ruolo ruolo;
@@ -54,6 +54,22 @@ public class Utente {
         this.nome = nome;
         this.cognome = cognome;
         this.username = username;
+        this.esperienzaAccumulata = esperienzaAccumulata;
+        this.creditoAccumulato = creditoAccumulato;
+        this.stato = stato;
+        this.ruolo = ruolo;
+    }
+
+    public Utente(Long id, String nome, String cognome,
+                  String username, String password, LocalDate dataRegistrazione,
+                  Integer esperienzaAccumulata,
+                  Double creditoAccumulato, Stato stato, Ruolo ruolo) {
+        this.id = id;
+        this.nome = nome;
+        this.cognome = cognome;
+        this.username = username;
+        this.password = password;
+        this.dataRegistrazione = dataRegistrazione;
         this.esperienzaAccumulata = esperienzaAccumulata;
         this.creditoAccumulato = creditoAccumulato;
         this.stato = stato;
@@ -81,6 +97,7 @@ public class Utente {
         this.password = password;
         this.creditoAccumulato = creditoAccumulato;
     }
+
 
     public Long getId() {
         return id;

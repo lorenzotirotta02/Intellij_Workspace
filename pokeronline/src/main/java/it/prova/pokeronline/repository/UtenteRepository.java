@@ -19,7 +19,7 @@ public interface UtenteRepository extends JpaRepository<Utente, Long> {
     @Query("select u from Utente u where u.username = ?1")
     Optional<Utente> findByUsername(String username);
 
-    @Query("select count (u) from Utente u where u.tavolo = ?1")
+    @Query("select count(u) from Utente u where u.tavolo.id = ?1")
     Long countAllGiocatoriByTavoloId(Long id);
 
     @Query("select u from Utente u join fetch u.ruolo where u.id = ?1")

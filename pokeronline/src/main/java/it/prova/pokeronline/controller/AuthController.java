@@ -4,6 +4,7 @@ import it.prova.pokeronline.dto.UtenteDTO;
 import it.prova.pokeronline.dto.securitydto.UtenteAuthDTO;
 import it.prova.pokeronline.dto.securitydto.UtenteInfoJWTResponseDTO;
 import it.prova.pokeronline.exception.AccessoNegatoException;
+import it.prova.pokeronline.exception.CredenzialiNonValideException;
 import it.prova.pokeronline.exception.IdNotNullForInsertException;
 import it.prova.pokeronline.model.Ruolo;
 import it.prova.pokeronline.model.Utente;
@@ -67,6 +68,7 @@ public class AuthController {
             // Authenticating the Login Credentials
             authManager.authenticate(authInputToken);
 
+
             // Se siamo qui posso tranquillamente generare il JWT Token
             String token = jwtUtil.generateToken(body.getUsername(), utente.getRuolo()
             );
@@ -75,7 +77,7 @@ public class AuthController {
             return Collections.singletonMap("jwt-token", token);
         } catch (AuthenticationException authExc) {
             // Auhentication Failed
-            throw new RuntimeException("Invalid Login Credentials");
+            throw new CredenzialiNonValideException("Credenziali non valide, riprova.");
         }
     }
 

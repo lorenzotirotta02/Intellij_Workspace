@@ -52,26 +52,33 @@ public class UtenteServiceImpl implements UtenteService {
 
     @Override
     public Utente aggiornaUtente(Utente utente) {
-        if(utente == null) {
-            throw new IllegalArgumentException("L'utente non può essere nullo.");
+        if (utente == null || utente.getId() == null) {
+            throw new IllegalArgumentException("L'utente e il suo ID non possono essere null.");
         }
+
         Utente utenteLoggato = recuperaUtenteLoggato();
 
-        if(utenteLoggato.getRuolo().getCodice().equals("ADMIN") || utenteLoggato.getId().equals(utente.getId())) {
-            Utente utenteAggiornato = new Utente();
-            utenteAggiornato.setId(utente.getId());
-            utenteAggiornato.setNome(utente.getNome());
-            utenteAggiornato.setCognome(utente.getCognome());
-            utenteAggiornato.setUsername(utente.getUsername());
-            utenteAggiornato.setRuolo(utente.getRuolo());
-            utenteAggiornato.setCreditoAccumulato(utente.getCreditoAccumulato());
-            utenteAggiornato.setEsperienzaAccumulata(utente.getEsperienzaAccumulata());
-            utenteAggiornato.setStato(utente.getStato());
-            return utenteRepository.save(utenteAggiornato);
-        }else{
+        if (!utenteLoggato.getRuolo().getCodice().equals("ADMIN") && !utenteLoggato.getId().equals(utente.getId())) {
             throw new UtenteNonAutorizzatoException("Utente non autorizzato a modificare questo utente.");
         }
+
+        Utente utenteEsistente = utenteRepository.findById(utente.getId())
+                .orElseThrow(() -> new RuntimeException("Utente non trovato con ID: " + utente.getId()));
+
+        // Aggiorna solo se i campi NON sono nulli
+        if (utente.getNome() != null) utenteEsistente.setNome(utente.getNome());
+        if (utente.getCognome() != null) utenteEsistente.setCognome(utente.getCognome());
+        if (utente.getUsername() != null) utenteEsistente.setUsername(utente.getUsername());
+        if (utente.getPassword() != null) utenteEsistente.setPassword(utente.getPassword());
+        if (utente.getDataRegistrazione() != null) utenteEsistente.setDataRegistrazione(utente.getDataRegistrazione());
+        if (utente.getRuolo() != null) utenteEsistente.setRuolo(utente.getRuolo());
+        if (utente.getCreditoAccumulato() != null) utenteEsistente.setCreditoAccumulato(utente.getCreditoAccumulato());
+        if (utente.getEsperienzaAccumulata() != null) utenteEsistente.setEsperienzaAccumulata(utente.getEsperienzaAccumulata());
+        if (utente.getStato() != null) utenteEsistente.setStato(utente.getStato());
+
+        return utenteRepository.save(utenteEsistente);
     }
+
 
     @Override
     public void disabilitaUtente(Long idUtente) {

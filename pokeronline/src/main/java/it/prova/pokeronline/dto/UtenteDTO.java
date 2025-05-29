@@ -37,6 +37,19 @@ public class UtenteDTO {
     public UtenteDTO() {
     }
 
+    public UtenteDTO(Long id, String nome, String cognome, String username, String password, LocalDate dataRegistrazione, Integer esperienzaAccumulata, Double creditoAccumulato, Stato stato, Ruolo ruolo) {
+        this.id = id;
+        this.nome = nome;
+        this.cognome = cognome;
+        this.username = username;
+        this.password = password;
+        this.dataRegistrazione = dataRegistrazione;
+        this.esperienzaAccumulata = esperienzaAccumulata;
+        this.creditoAccumulato = creditoAccumulato;
+        this.stato = stato;
+        this.ruolo = ruolo;
+    }
+
     public UtenteDTO(Long id, String nome,
                      String cognome, String username,
                      Integer esperienzaAccumulata, Double creditoAccumulato, Stato stato, Ruolo ruolo) {
@@ -162,6 +175,35 @@ public class UtenteDTO {
                 this.ruolo
         );
     }
+
+    public Utente buildUtenteModelForUpdate(){
+        return new Utente(
+                this.id,
+                this.nome,
+                this.cognome,
+                this.username,
+                this.password,
+                this.dataRegistrazione,
+                this.esperienzaAccumulata,
+                this.creditoAccumulato,
+                this.stato,
+                this.ruolo
+        );
+    }
+    public static UtenteDTO buildUtenteDTOFromModelForUpdate(Utente utenteModel) {
+        return new UtenteDTO(
+                utenteModel.getId(),
+                utenteModel.getNome(),
+                utenteModel.getCognome(),
+                utenteModel.getUsername(),
+                utenteModel.getPassword(),
+                utenteModel.getDataRegistrazione(),
+                utenteModel.getEsperienzaAccumulata(),
+                utenteModel.getCreditoAccumulato(),
+                utenteModel.getStato(),
+                utenteModel.getRuolo()
+        );
+    }
     //this.nome = nome;
     //        this.cognome = cognome;
     //        this.username = username;
@@ -170,9 +212,9 @@ public class UtenteDTO {
     public static UtenteDTO buildUtenteDTOFromModel(Utente utenteModel) {
         return new UtenteDTO(
                 utenteModel.getId(),
-                utenteModel.getUsername(),
                 utenteModel.getNome(),
                 utenteModel.getCognome(),
+                utenteModel.getUsername(),
                 utenteModel.getEsperienzaAccumulata(),
                 utenteModel.getCreditoAccumulato(),
                 utenteModel.getStato(),
